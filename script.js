@@ -1182,6 +1182,330 @@ function addPaperToTopic(topicKey, paperItem) {
   ['path-biomarker', PORPOISE_PAPER]
 ].forEach(([topicKey, paperItem]) => addPaperToTopic(topicKey, paperItem));
 
+
+/* ===== Computational Biology taxonomy refresh: Zotero-style directory ===== */
+[
+  'cbio-overview', 'cbio-foundation', 'cbio-epigenetics', 'cbio-perturbation',
+  'cbio-integration', 'cbio-spatial', 'cbio-atlas', 'cbio-dynamics',
+  'cbio-regulatory', 'cbio-representation', 'cbio-causal', 'cbio-velocity',
+  'cbio-agent', 'cbio-pathomics', 'cbio-others'
+].forEach((key) => { delete topics[key]; });
+
+Object.assign(topics, {
+  'cbio-overview': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Computational Biology Overview',
+    subtitle: 'A Zotero-style map for single-cell and spatial biology: multi-omics integration, RNA velocity, foundation models, agents, regulatory networks, causal inference, perturbation prediction, spatial omics, 3D atlases, representation learning, and pathology-omics links.',
+    note: 'This section is reorganized to make the biology part look more coherent. Each folder is centered on a biological modeling problem rather than a loose method keyword.',
+    rows: [
+      ['Multi-omics Integration', 'RNA, ATAC, protein, spatial and other modalities; paired, partially paired, mosaic and unpaired integration.', 'cbio-integration'],
+      ['RNA Velocity & Dynamics', 'RNA velocity, chromatin-to-RNA dynamics, latent time, fate transition and trajectory modeling.', 'cbio-velocity'],
+      ['Cell Foundation Models', 'Large pretrained models for gene programs, cell states, atlas transfer and perturbation reasoning.', 'cbio-foundation'],
+      ['Single-cell Agents', 'LLM/agent workflows for single-cell analysis planning, annotation, code execution and biological interpretation.', 'cbio-agent'],
+      ['Gene Regulatory Networks', 'Regulatory network inference, transcription factor programs and gene regulation-aware dynamics.', 'cbio-regulatory'],
+      ['Causal Inference', 'Causal discovery, counterfactual inference and causal representation learning for biological systems.', 'cbio-causal'],
+      ['Perturbation Prediction', 'CRISPR/Perturb-seq, drug response, counterfactual cellular response and intervention modeling.', 'cbio-perturbation'],
+      ['Spatial Omics', 'Spatial transcriptomics, spatial proteomics, tissue niches and histology-informed spatial learning.', 'cbio-spatial'],
+      ['3D Cell Atlases', 'Whole-organ or whole-embryo spatial atlases, tissue architecture and 3D cellular organization.', 'cbio-atlas'],
+      ['Representation Learning', 'Self-supervised, contrastive and generative representation learning for cells, genes and tissues.', 'cbio-representation'],
+      ['Pathology and Omics', 'Connections between histology, molecular profiling, spatial transcriptomics and cancer biology.', 'cbio-pathomics'],
+      ['Others', 'Useful papers that are relevant to computational biology but do not yet form a mature folder.', 'cbio-others']
+    ],
+    papers: []
+  },
+  'cbio-integration': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Multi-omics Integration',
+    subtitle: 'Methods for aligning multiple molecular modalities while preserving shared biology, modality-specific signals and downstream interpretability.',
+    note: 'A good integration method should not only mix modalities. The note should ask what information is shared, what remains modality-specific, whether pairing is required, and whether the integrated space improves real biological questions.',
+    rows: [
+      ['Shared and private signals', 'Separate common cell-state structure from modality-specific biological information.', null],
+      ['Pairing design', 'Track whether the method supports paired, partially paired, mosaic or unpaired observations.', null],
+      ['Evaluation depth', 'Look beyond mixing metrics: cross-modal prediction, biological conservation and temporal validity matter.', null]
+    ],
+    papers: [
+      paper('Nature Biotechnology 2022', 'Multi-omics Single-cell Data Integration and Regulatory Inference with GLUE', ['GLUE', 'Unpaired Data', 'Regulatory Graph'], 'Graph-linked integration for unpaired single-cell multi-omics and regulatory inference.', 'https://www.nature.com/articles/s41587-022-01284-4', {
+        question: 'Can unpaired modalities be integrated while retaining regulatory interpretability?',
+        method: 'Links omics-specific feature spaces through a guidance graph and joint embedding.',
+        value: 'Strong baseline for unpaired RNA and ATAC integration with regulatory interpretation.',
+        caution: 'Good alignment does not necessarily imply good temporal or causal modeling.'
+      }),
+      paper('Nature Methods 2023', 'MultiVI: Deep Generative Model for the Integration of Multimodal Data', ['MultiVI', 'VAE', 'Mosaic Data'], 'Probabilistic integration of multimodal single-cell data with missing modalities and mosaic measurement designs.', 'https://www.nature.com/articles/s41592-023-01909-9', {
+        question: 'How should a model represent cells when some modalities are missing?',
+        method: 'Uses a deep generative model with modality-specific and joint latent representations.',
+        value: 'Important for realistic single-cell datasets where not every modality is measured everywhere.',
+        caution: 'Imputation quality should be evaluated separately from visual embedding quality.'
+      }),
+      paper('Nature Biotechnology 2024', 'Mosaic Integration and Knowledge Transfer of Single-cell Multimodal Data', ['MIDAS', 'Mosaic Integration', 'Knowledge Transfer'], 'A deep probabilistic framework for integrating datasets that share only subsets of modalities.', 'https://www.nature.com/articles/s41587-023-02040-y', {
+        question: 'Can knowledge transfer work when different datasets contain different modality combinations?',
+        method: 'Models mosaic data using probabilistic latent variables and modality transfer.',
+        value: 'Relevant for real multi-cohort studies with incomplete measurement designs.',
+        caution: 'Need to check whether transferred modalities preserve cell-type and disease-specific structure.'
+      })
+    ]
+  },
+  'cbio-velocity': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'RNA Velocity & Cell Dynamics',
+    subtitle: 'RNA velocity, multimodal velocity, latent time, trajectory inference, fate landscapes and transition modeling from static or time-resolved single-cell data.',
+    note: 'This folder merges the old RNA velocity and trajectory inference pages. It is better to read these papers together because they all ask how static single-cell snapshots imply temporal transition.',
+    rows: [
+      ['Velocity', 'Infer transition direction using spliced/unspliced RNA, chromatin accessibility or multimodal kinetic assumptions.', null],
+      ['Latent time', 'Order asynchronous cells along biological progression and branch structures.', null],
+      ['Fate landscape', 'Model terminal states, lineage commitment and future-state prediction.', null]
+    ],
+    papers: [
+      paper('Nature Communications 2025', 'Inferring Differential Dynamics from Multi-lineage Multiomic and Multi-sample Single-cell Data with MultiVeloVAE', ['MultiVeloVAE', 'Velocity', 'Multiomics'], 'A probabilistic framework for multi-sample and multiomic velocity inference across lineages and partially overlapping modalities.', 'https://www.nature.com/articles/s41467-025-66287-6', {
+        question: 'Can velocity models compare dynamic parameters across lineages, samples and modalities?',
+        method: 'Uses variational Bayesian inference to place chromatin and RNA dynamics on a shared time scale.',
+        value: 'Highly relevant for ATLAS-style lag and temporal modeling.',
+        caution: 'Velocity depends on kinetic assumptions and needs careful lineage and root interpretation.'
+      }),
+      paper('Nature Communications 2025', 'GraphVelo Allows Accurate Inference of Multimodal Velocities and Molecular Mechanisms for Single Cells', ['GraphVelo', 'Multimodal Velocity', 'Mechanism'], 'A graph-based approach for multimodal velocity and molecular mechanism inference.', 'https://www.nature.com/articles/s41467-025-67259-6', {
+        question: 'Can graph structure improve velocity estimation and molecular mechanism discovery?',
+        method: 'Combines neighborhood graph learning with multimodal signals to infer transition behavior.',
+        value: 'Useful for comparing dynamic graph models with latent-time based approaches.',
+        caution: 'Graph construction can strongly affect inferred direction and downstream interpretation.'
+      }),
+      paper('Nature Methods 2024', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'Regulatory Dynamics', 'Velocity'], 'A velocity-style model that incorporates gene regulatory information to improve dynamic inference and interpretability.', 'https://www.nature.com/articles/s41592-024-02429-w', {
+        question: 'Can gene regulatory structure make single-cell dynamics more biologically interpretable?',
+        method: 'Integrates regulatory information into dynamic modeling of cell-state transitions.',
+        value: 'A strong reference for comparing dynamics models that go beyond pure transcript abundance.',
+        caution: 'Regulatory priors can help interpretation but may constrain discovery when priors are incomplete.'
+      })
+    ]
+  },
+  'cbio-foundation': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Cell Foundation Models',
+    subtitle: 'Pretrained biological models that learn reusable representations of cells, genes, perturbations and tissue context from large-scale atlases.',
+    note: 'Compare how each model defines tokens, what pretraining objective it uses, and whether transfer is evaluated on genuinely unseen tissues, cell types, disease states or perturbations.',
+    rows: [
+      ['Biological tokens', 'Genes, expression ranks, cells, neighborhoods and metadata tokens define what the model can reason about.', null],
+      ['Pretraining objective', 'Masked prediction, autoregression, reconstruction, contrastive learning and task-aware transfer shape the learned biology.', null],
+      ['Transfer evidence', 'The key question is whether pretraining improves difficult settings rather than only in-distribution annotation.', null]
+    ],
+    papers: [
+      paper('Nature Methods 2024', 'scGPT: Toward Building a Foundation Model for Single-cell Multiomics Using Generative AI', ['scGPT', 'Generative AI', 'Single Cell'], 'A generative foundation model pretrained on large single-cell profiles for transfer across annotation, perturbation and multiomic tasks.', 'https://www.nature.com/articles/s41592-024-02201-0', {
+        question: 'Can a language-model style framework learn reusable cell and gene representations from large-scale single-cell profiles?',
+        method: 'Treats gene expression as a tokenized sequence and pretrains a transformer using generative objectives.',
+        value: 'Useful as a reference point for single-cell foundation modeling and transfer learning.',
+        caution: 'Need to check how much gain comes from pretraining scale versus task-specific fine tuning.'
+      }),
+      paper('Nature 2023', 'Transfer Learning Enables Predictions in Network Biology', ['Geneformer', 'Network Biology', 'Transfer'], 'A context-aware transformer pretrained on single-cell transcriptomes to predict gene network behavior under limited data settings.', 'https://www.nature.com/articles/s41586-023-06139-9', {
+        question: 'Can a model pretrained on transcriptomes predict network regulators and disease-relevant gene programs?',
+        method: 'Uses attention-based transfer learning over ranked gene expression information.',
+        value: 'Important for connecting foundation models with regulatory biology rather than simple cell labeling.',
+        caution: 'Network interpretation should be checked against perturbation and external biological evidence.'
+      }),
+      paper('Nature Methods 2025', 'Nicheformer: A Foundation Model for Single-cell and Spatial Omics', ['Nicheformer', 'Spatial Context', 'Foundation Model'], 'A foundation model trained on dissociated and spatially resolved cells to represent tissue niches and local cellular microenvironments.', 'https://www.nature.com/articles/s41592-025-02814-z', {
+        question: 'How can cell foundation models encode spatial context instead of treating cells as isolated observations?',
+        method: 'Pretrains a transformer on large single-cell and targeted spatial transcriptomics collections.',
+        value: 'Especially relevant for bridging single-cell atlases with spatial tissue organization.',
+        caution: 'The most important evaluation is transfer across platforms, organs and tissue architectures.'
+      }),
+      paper('Nature Communications 2025', 'scPRINT: Pretraining on 50 Million Cells Allows Robust Cell Representation Learning', ['scPRINT', 'Cell Model', 'Atlas'], 'A large-scale cell model for robust cell representation learning and downstream biological prediction.', 'https://www.nature.com/articles/s41467-025-58699-1', {
+        question: 'Does scaling the number of cells improve robustness and biological transfer?',
+        method: 'Pretrains over a very large cell collection and evaluates representation quality across tasks.',
+        value: 'Useful for understanding scaling behavior in single-cell representation learning.',
+        caution: 'Robustness should be separated from dataset overlap and annotation consistency.'
+      })
+    ]
+  },
+  'cbio-agent': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Single-cell Agents',
+    subtitle: 'LLM and agentic systems for single-cell analysis planning, tool use, annotation, code generation, workflow automation and biological interpretation.',
+    note: 'This is a new forward-looking folder. It is useful for papers or notes that combine biological databases, code execution, single-cell pipelines and LLM reasoning.',
+    rows: [
+      ['Analysis planning', 'Automatically choose preprocessing, integration, annotation and downstream analysis steps.', null],
+      ['Tool use', 'Call Scanpy, scvi-tools, enrichment analysis, plotting tools and literature retrieval in a controlled workflow.', null],
+      ['Biological reasoning', 'Turn statistical outputs into cautious, evidence-grounded biological hypotheses.', null]
+    ],
+    papers: [
+      paper('Topic Note', 'Single-cell Agent Systems for Automated Omics Analysis', ['Agent', 'Single Cell', 'Workflow'], 'A placeholder synthesis note for agentic single-cell analysis: planning, coding, running tools and summarizing biological results.', '#topic-summary', {
+        question: 'How can LLM agents assist single-cell analysis without replacing careful biological validation?',
+        method: 'Organize agent workflows around tool calling, provenance tracking, code review and human confirmation.',
+        value: 'Good folder for collecting emerging agent papers and your own workflow notes.',
+        caution: 'Agent outputs need strict checking because hallucinated biological interpretation is risky.'
+      })
+    ]
+  },
+  'cbio-regulatory': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Gene Regulatory Networks',
+    subtitle: 'Regulatory network inference, transcription factor programs, cis-regulatory logic and gene regulation-aware dynamic modeling.',
+    note: 'This folder should keep papers that explain why cell states change, not just how cells cluster.',
+    rows: [
+      ['Regulatory programs', 'Identify TFs, target genes and modules that define cell identity or state transition.', null],
+      ['Multi-omics evidence', 'Use RNA, ATAC, motif, enhancer and protein evidence to support regulatory hypotheses.', null],
+      ['Dynamic regulation', 'Connect regulatory programs to velocity, pseudotime, perturbation and fate changes.', null]
+    ],
+    papers: [
+      paper('Nature Biotechnology 2022', 'Multi-omics Single-cell Data Integration and Regulatory Inference with GLUE', ['GLUE', 'Regulatory Graph', 'RNA ATAC'], 'Graph-linked multi-omics integration with regulatory interpretation.', 'https://www.nature.com/articles/s41587-022-01284-4', {
+        question: 'Can integration and regulatory inference be learned in the same framework?',
+        method: 'Uses a guidance graph to connect features across modalities.',
+        value: 'A useful reference for RNA-ATAC regulatory interpretation.',
+        caution: 'Inferred edges should be validated with perturbation or external regulatory evidence.'
+      }),
+      paper('Nature 2023', 'Transfer Learning Enables Predictions in Network Biology', ['Geneformer', 'Network Biology', 'Regulators'], 'Transformer-based transfer learning for network biology and candidate regulator discovery.', 'https://www.nature.com/articles/s41586-023-06139-9', {
+        question: 'Can pretrained single-cell models identify disease-relevant regulators?',
+        method: 'Fine-tunes pretrained representations for network biology tasks.',
+        value: 'Connects foundation models with regulatory hypotheses.',
+        caution: 'Predicted regulators require experimental validation.'
+      }),
+      paper('Nature Methods 2024', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'GRN', 'Dynamics'], 'Uses gene regulatory information to make dynamic inference more mechanistic.', 'https://www.nature.com/articles/s41592-024-02429-w', {
+        question: 'Can regulatory priors improve dynamic inference?',
+        method: 'Combines regulatory structure with single-cell dynamics.',
+        value: 'Good bridge between regulatory networks and trajectory modeling.',
+        caution: 'The usefulness of priors depends on regulatory network quality.'
+      })
+    ]
+  },
+  'cbio-causal': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Causal Inference',
+    subtitle: 'Causal discovery, counterfactual prediction, intervention modeling and causally meaningful representations for biological systems.',
+    note: 'Keep this folder for papers that move beyond association: perturbation design, counterfactual responses, causal graphs or explicit intervention assumptions.',
+    rows: [
+      ['Causal assumptions', 'Record what is assumed about interventions, confounders, batches, time and hidden variables.', null],
+      ['Counterfactual prediction', 'Ask whether the model predicts what would happen under an unobserved intervention.', null],
+      ['Validation', 'Prefer perturbation, randomized or held-out intervention evidence over purely correlational claims.', null]
+    ],
+    papers: [
+      paper('Nature Methods 2025', 'Deep Learning-based Gene Perturbation Effect Prediction Using Single-cell Data', ['Perturbation', 'Counterfactual', 'Prediction'], 'A practical reference for reading perturbation response as counterfactual cellular prediction.', 'https://www.nature.com/articles/s41592-025-02772-6', {
+        question: 'Can models predict the molecular consequence of unseen interventions?',
+        method: 'Learns perturbation identity and cellular context to predict response profiles.',
+        value: 'Useful for causal-style evaluation through held-out perturbations.',
+        caution: 'Split design is critical; otherwise the task can become interpolation rather than causal generalization.'
+      })
+    ]
+  },
+  'cbio-perturbation': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Perturbation Prediction',
+    subtitle: 'Models that learn cellular responses to CRISPR perturbation, drug treatment, environmental change and regulatory intervention.',
+    note: 'Perturbation papers are most useful when they separate correlation, prediction and mechanism. Record experimental design, control cells, unseen perturbation settings and biological validation.',
+    rows: [
+      ['Gene perturbation', 'Predict effects of CRISPR knockout/knockdown/activation at single-cell resolution.', null],
+      ['Drug response', 'Model dose, cell-type context and treatment-specific state changes.', null],
+      ['Combination generalization', 'Predict unseen genes, unseen combinations or unseen cell contexts.', null]
+    ],
+    papers: [
+      paper('Nature Methods 2025', 'Deep Learning-based Gene Perturbation Effect Prediction Using Single-cell Data', ['Perturbation', 'Single Cell', 'Prediction'], 'A method-focused paper for predicting gene perturbation effects from single-cell measurements.', 'https://www.nature.com/articles/s41592-025-02772-6', {
+        question: 'Can single-cell models predict the molecular consequence of unseen perturbations?',
+        method: 'Uses deep learning to map perturbation identity and cellular context to response profiles.',
+        value: 'A practical reference for perturbation response prediction and benchmark design.',
+        caution: 'Need to check split design carefully to avoid overly easy gene or cell-type leakage.'
+      }),
+      paper('Nature 2023', 'Transfer Learning Enables Predictions in Network Biology', ['Geneformer', 'Regulatory Network', 'Target'], 'A foundation model paper that uses transfer learning for network biology and candidate regulator discovery.', 'https://www.nature.com/articles/s41586-023-06139-9', {
+        question: 'Can pretrained single-cell models help discover gene regulators and therapeutic targets?',
+        method: 'Fine-tunes a pretrained transformer for network biology tasks with limited data.',
+        value: 'Connects perturbation-style reasoning with large-scale pretraining.',
+        caution: 'Predicted regulators require experimental or external biological validation.'
+      })
+    ]
+  },
+  'cbio-spatial': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Spatial Omics',
+    subtitle: 'Spatial transcriptomics, spatial proteomics, tissue neighborhoods, molecular niches and image-informed spatial learning.',
+    note: 'Read spatial omics papers through three lenses: spatial resolution, molecular coverage and whether the method captures tissue organization rather than only local smoothing.',
+    rows: [
+      ['Spatial reconstruction', 'Recover gene expression, cell composition and tissue architecture from spatial assays.', null],
+      ['Image guidance', 'Use histology to refine expression prediction, spot deconvolution and spatial annotation.', null],
+      ['Tissue niches', 'Model multicellular organization in immune, stromal, epithelial and tumor compartments.', null]
+    ],
+    papers: [
+      paper('Nature Biotechnology 2025', 'Standardized Metrics for Assessment and Reproducibility of Imaging-based Spatial Omics', ['Benchmark', 'Spatial Omics', 'Reproducibility'], 'Benchmarking and best-practice direction for evaluating imaging-based spatial omics data and computational methods.', 'https://www.nature.com/articles/s41587-025-02811-9', {
+        question: 'How should spatial omics datasets and computational analyses be evaluated reproducibly?',
+        method: 'Defines standardized metrics and comparisons for imaging-based spatial omics resources.',
+        value: 'Useful as an evaluation checklist for spatial omics and histology-omics methods.',
+        caution: 'Metrics need to be matched to biological questions and platform resolution.'
+      }),
+      OMICLIP_PAPER,
+      STORM_PAPER,
+      MULTIEMBED_PAPER
+    ]
+  },
+  'cbio-atlas': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: '3D Cell Atlases',
+    subtitle: 'Whole-organ, whole-embryo and tissue-scale atlases that preserve spatial structure, cell neighborhoods and 3D organization.',
+    note: 'This folder is for atlas papers where spatial organization is part of the biological question, especially 3D reconstruction and whole-tissue cellular maps.',
+    rows: [
+      ['Atlas construction', 'Large-scale cell typing, registration, segmentation and spatial coordinate systems.', null],
+      ['3D organization', 'Reconstruct tissue architecture and spatial relationships across sections or volumes.', null],
+      ['Biological discovery', 'Use atlas structure to discover niches, gradients, development routes or disease microenvironments.', null]
+    ],
+    papers: [
+      paper('Topic Note', '3D Cell Atlases and Spatially Resolved Tissue Architecture', ['3D Atlas', 'Spatial Biology', 'Tissue'], 'A synthesis folder for whole-organ and tissue-scale 3D cellular maps.', '#topic-summary', {
+        question: 'How can single-cell and spatial omics move from 2D sections to 3D tissue organization?',
+        method: 'Collect atlas papers involving registration, reconstruction, spatial coordinate mapping and cell-type annotation.',
+        value: 'Useful for connecting spatial omics with tissue architecture and developmental biology.',
+        caution: '3D atlas quality depends heavily on registration, sampling density and annotation consistency.'
+      })
+    ]
+  },
+  'cbio-representation': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Representation Learning',
+    subtitle: 'Self-supervised, contrastive, generative and graph representation learning for cells, genes, spatial niches and multimodal biology.',
+    note: 'This folder collects general representation learning papers that support multiple biological tasks rather than only one fixed application.',
+    rows: [
+      ['Cell embeddings', 'Represent cells in a way that preserves identity, state, perturbation and biological continuum.', null],
+      ['Gene representations', 'Learn gene programs, co-expression, regulation and functional similarity.', null],
+      ['Multimodal embeddings', 'Align different assays or biological views into a shared space.', null]
+    ],
+    papers: [
+      paper('Nature Communications 2025', 'scPRINT: Pretraining on 50 Million Cells Allows Robust Cell Representation Learning', ['scPRINT', 'Representation', 'Pretraining'], 'Large-scale pretraining for robust cell representation learning.', 'https://www.nature.com/articles/s41467-025-58699-1', {
+        question: 'Does scaling single-cell pretraining improve robust cell representations?',
+        method: 'Pretrains over a very large cell collection and evaluates across downstream tasks.',
+        value: 'A useful reference for scaling behavior in representation learning.',
+        caution: 'Need to distinguish robustness from dataset overlap and annotation consistency.'
+      }),
+      MULTIEMBED_PAPER,
+      OMICLIP_PAPER
+    ]
+  },
+  'cbio-pathomics': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Pathology and Omics',
+    subtitle: 'Papers that connect tissue morphology, molecular profiling, spatial transcriptomics and cancer biology.',
+    note: 'This folder makes the bridge between computational biology and pathology-omics visible inside the biology directory, while the dedicated Pathology Omics section keeps the deeper image-omics reading map.',
+    rows: [
+      ['Histology-to-omics', 'Predict or align molecular profiles from tissue images.', null],
+      ['Spatial molecular maps', 'Use histology and spatial transcriptomics to reveal tissue organization.', null],
+      ['Cancer biology', 'Connect morphology, microenvironment, molecular subtype and clinical outcome.', null]
+    ],
+    papers: [PORPOISE_PAPER, OMICLIP_PAPER, STORM_PAPER, MULTIEMBED_PAPER]
+  },
+  'cbio-others': {
+    family: 'Computational Biology',
+    tone: 'bio',
+    title: 'Others',
+    subtitle: 'Useful computational biology papers that are worth reading but do not yet form a mature subfolder.',
+    note: 'Use this as a temporary inbox. Once several papers accumulate around the same theme, move them into a named topic folder.',
+    rows: [
+      ['Inbox rule', 'Keep only papers that are genuinely biology-facing and move them into a stable folder when the theme becomes clear.', null],
+      ['Possible future folders', 'Metabolism, immune repertoire, microbial genomics, protein design, systems biology and clinical omics.', null]
+    ],
+    papers: []
+  }
+});
+
 const topicKeys = Object.keys(topics).filter((key) => !key.endsWith('overview'));
 const allPapers = topicKeys.flatMap((key) =>
   topics[key].papers.map((p) => ({
@@ -1196,6 +1520,13 @@ const allPapers = topicKeys.flatMap((key) =>
 );
 const paperBySlug = new Map(allPapers.map((p) => [p.slug, p]));
 const families = ['All', 'Computational Biology', 'Computational Pathology', 'Pathology Omics'];
+
+const topicNumberMap = {};
+document.querySelectorAll('.nav-link[data-page]').forEach((link) => {
+  const pageKey = link.dataset.page;
+  const numberEl = link.querySelector('.nav-number');
+  if (pageKey && numberEl) topicNumberMap[pageKey] = numberEl.textContent.trim();
+});
 
 let currentShare = {
   title: 'Nature Portfolio Reading Map',
@@ -1229,11 +1560,24 @@ function renderOverviewPage(key) {
   `).join('');
   const papers = data.papers.length ? data.papers.map(renderPaper).join('') : '<div class="empty-note">Choose a topic above to open the paper list.</div>';
   const topicIndex = isOverview ? `<div class="topic-index">${rows}</div>` : '';
+  const topicNumber = topicNumberMap[key] || '';
+  const paperCount = data.papers.length;
   page.innerHTML = `
     <div class="overview-shell family-${data.tone} ${isOverview ? 'is-overview-page' : 'is-topic-page'}" data-family="${escapeHTML(data.family)}">
       <header class="overview-hero">
-        <div class="overview-family">${escapeHTML(data.family)}</div>
-        <h2 class="overview-title">${escapeHTML(data.title)}</h2>
+        <div class="overview-hero-top">
+          <div class="overview-heading-block">
+            <div class="overview-family">${escapeHTML(data.family)}</div>
+            <div class="overview-title-row">
+              ${topicNumber ? `<span class="overview-number">${escapeHTML(topicNumber)}</span>` : ''}
+              <h2 class="overview-title">${escapeHTML(data.title)}</h2>
+            </div>
+          </div>
+          <div class="topic-paper-stat" aria-label="Paper count">
+            <strong>${paperCount}</strong>
+            <span>${paperCount === 1 ? 'paper' : 'papers'}</span>
+          </div>
+        </div>
         <p class="overview-text">${escapeHTML(data.subtitle)}</p>
       </header>
       ${topicIndex}
@@ -1670,6 +2014,26 @@ function handleReaderAction(action) {
   updateReaderScale();
 }
 
+const homeSectionIds = ['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'];
+function setHomeSection(sectionId = 'home-introduction') {
+  const chosen = homeSectionIds.includes(sectionId) ? sectionId : 'home-introduction';
+  document.querySelectorAll('[data-home-panel]').forEach((panel) => {
+    panel.classList.toggle('is-home-panel-active', panel.id === chosen);
+  });
+  document.querySelectorAll('.home-anchor-link').forEach((link) => {
+    const target = link.getAttribute('href')?.replace('#', '');
+    link.classList.toggle('active', target === chosen);
+  });
+  currentShare = {
+    title: chosen === 'home-introduction' ? 'Ye Zhang Reading Notes' : (document.querySelector(`#${chosen} .section-title`)?.textContent || 'Reading Notes'),
+    subtitle: 'Computational biology, computational pathology, and pathology-omics AI.',
+    tags: ['Single Cell', 'Spatial Omics', 'Pathology AI', 'Omics'],
+    url: `${window.location.href.split('#')[0]}#${chosen}`,
+    tone: 'home'
+  };
+  updateSharePreview();
+}
+
 function getPageFromHash() {
   const hash = window.location.hash.replace('#', '').trim();
   if (['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'].includes(hash)) return 'home';
@@ -1716,8 +2080,13 @@ function activatePage(pageKey, options = {}) {
   document.querySelectorAll('[data-page]').forEach((item) => item.classList.remove('active'));
   target.classList.add('is-active');
   document.querySelectorAll(`[data-page="${pageKey}"]`).forEach((item) => item.classList.add('active'));
-  currentShare = buildShareFromTopic(pageKey);
-  updateSharePreview();
+  if (pageKey === 'home') {
+    const hash = window.location.hash.replace('#', '').trim();
+    setHomeSection(homeSectionIds.includes(hash) ? hash : 'home-introduction');
+  } else {
+    currentShare = buildShareFromTopic(pageKey);
+    updateSharePreview();
+  }
   if (updateHash) window.location.hash = pageKey;
   window.scrollTo({ top: 0, behavior: smoothScroll ? 'smooth' : 'auto' });
   return true;
@@ -1734,11 +2103,11 @@ document.addEventListener('click', (event) => {
   const homeAnchor = event.target.closest('.home-anchor-link');
   if (homeAnchor) {
     event.preventDefault();
+    const targetId = homeAnchor.getAttribute('href')?.replace('#', '') || 'home-introduction';
     activatePage('home', { updateHash: false, smoothScroll: false });
-    const targetId = homeAnchor.getAttribute('href')?.replace('#', '');
-    const target = targetId ? document.getElementById(targetId) : null;
-    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (targetId) history.replaceState(null, '', `#${targetId}`);
+    setHomeSection(targetId);
+    history.replaceState(null, '', `#${targetId}`);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
 
@@ -1775,9 +2144,10 @@ document.addEventListener('click', (event) => {
 
 window.addEventListener('hashchange', () => {
   const hash = window.location.hash.replace('#', '').trim();
-  if (['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'].includes(hash)) {
+  if (homeSectionIds.includes(hash)) {
     activatePage('home', { updateHash: false, smoothScroll: false });
-    document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setHomeSection(hash);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     return;
   }
   const ok = activatePage(getPageFromHash(), { updateHash: false, smoothScroll: false });
@@ -1788,9 +2158,9 @@ const initialOk = activatePage(getPageFromHash(), { updateHash: false, smoothScr
 if (!initialOk) activatePage('home', { updateHash: false, smoothScroll: false });
 
 const initialHash = window.location.hash.replace('#', '').trim();
-if (['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'].includes(initialHash)) {
+if (homeSectionIds.includes(initialHash)) {
   activatePage('home', { updateHash: false, smoothScroll: false });
-  setTimeout(() => document.getElementById(initialHash)?.scrollIntoView({ behavior: 'auto', block: 'start' }), 0);
+  setHomeSection(initialHash);
 }
 
 const filterRow = document.getElementById('filterRow');
@@ -1806,6 +2176,8 @@ const suggestedSearches = [
     'TITAN',
     'GraphVelo',
     'MultiVeloVAE',
+    'RegVelo',
+    'Geneformer',
     'STORM',
     'Multi-Embed'
   ])
@@ -1989,6 +2361,38 @@ const finishedNotes = [
   }
 ];
 
+const recentAcceptedPapers = [
+  {
+    venue: 'Nature Methods 2026',
+    title: 'Systematically Decoding Pathological Morphologies and Molecular Profiles with Unified Multimodal Embedding',
+    tags: ['Multi-Embed', 'Pathology Omics', 'Accepted'],
+    url: 'https://www.nature.com/articles/s41592-026-03070-5',
+    noteFile: 'notes/MultiEmbed.pdf',
+    topicTitle: 'Pathology and Omics',
+    family: 'Pathology Omics',
+    tone: 'bridge'
+  },
+  {
+    venue: 'Nature Methods 2025',
+    title: 'A Visual Omics Foundation Model to Bridge Histopathology with Spatial Transcriptomics',
+    tags: ['OmiCLIP', 'Visual Omics', 'Accepted'],
+    url: 'https://www.nature.com/articles/s41592-025-02707-1',
+    noteFile: 'notes/OmiCLIP.pdf',
+    topicTitle: 'Histology Spatial Omics',
+    family: 'Pathology Omics',
+    tone: 'bridge'
+  },
+  {
+    venue: 'Nature Communications 2025',
+    title: 'Inferring Differential Dynamics from Multi Lineage Multiomic and Multi Sample Single Cell Data with MultiVeloVAE',
+    tags: ['MultiVeloVAE', 'Velocity', 'Accepted'],
+    url: 'https://www.nature.com/articles/s41467-025-66287-6',
+    noteFile: 'notes_V1/ComputationalBiology/MultiVeloVAE.html',
+    topicTitle: 'RNA Velocity & Cell Dynamics',
+    family: 'Computational Biology',
+    tone: 'bio'
+  }
+];
 
 const readingQueuePapers = [
   {
@@ -2041,7 +2445,7 @@ function renderQueueItem(item, index) {
       <div class="queue-main">
         <div class="queue-meta"><span>${escapeHTML(item.venue)}</span>${tags}</div>
         <h3>${escapeHTML(item.title)}</h3>
-        <p>Queued for later reading · ${escapeHTML(item.topicTitle)}</p>
+        <p>${escapeHTML(item.titlePrefix || 'Queued for later reading')} · ${escapeHTML(item.topicTitle)}</p>
       </div>
       <div class="queue-actions">
         <a class="paper-open paper-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -2049,6 +2453,12 @@ function renderQueueItem(item, index) {
       </div>
     </article>
   `;
+}
+
+function renderRecentAcceptedPapers() {
+  const wrap = document.getElementById('recentAcceptedPapers');
+  if (!wrap) return;
+  wrap.innerHTML = recentAcceptedPapers.map((item, index) => renderQueueItem({ ...item, titlePrefix: 'Accepted' }, index)).join('');
 }
 
 function renderFinishNotes() {
@@ -2073,6 +2483,7 @@ function renderHomeCollections() {
   if (queue) {
     queue.innerHTML = readingQueuePapers.map(renderQueueItem).join('');
   }
+  renderRecentAcceptedPapers();
   renderFinishNotes();
 }
 renderHomeCollections();
