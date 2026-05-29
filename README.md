@@ -15,11 +15,11 @@
 
 **Website:** [https://zhangye-zoe.com/notes/](https://zhangye-zoe.com/notes/)
 
-<p align="center">
+<!-- <p align="center">
   <a href="https://zhangye-zoe.com/notes/">
     <img src="assets/preview.png" alt="PathOmics Notes preview" width="90%">
   </a>
-</p>
+</p> -->
 
 
 
