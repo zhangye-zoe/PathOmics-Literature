@@ -2140,30 +2140,25 @@ function handleReaderAction(action) {
   updateReaderScale();
 }
 
-const homeSectionIds = ['home-introduction', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'];
-function setHomeSection(sectionId = 'home-introduction') {
-  const chosen = homeSectionIds.includes(sectionId) ? sectionId : 'home-introduction';
-  document.querySelectorAll('[data-home-panel]').forEach((panel) => {
-    panel.classList.toggle('is-home-panel-active', panel.id === chosen);
-  });
-  document.querySelectorAll('.home-anchor-link').forEach((link) => {
-    const target = link.getAttribute('href')?.replace('#', '');
-    link.classList.toggle('active', target === chosen);
-  });
-  currentShare = {
-    title: chosen === 'home-introduction' ? 'Ye Zhang Reading Notes' : (document.querySelector(`#${chosen} .section-title`)?.textContent || 'Reading Notes'),
+const homePages = ['home', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'];
+
+function buildShareFromHomePage(pageKey) {
+  const page = document.getElementById(`page-${pageKey}`);
+  const pageTitle = page?.dataset.pageTitle || (pageKey === 'home' ? 'Ye Zhang Reading Notes' : 'Reading Notes');
+  return {
+    title: pageTitle,
     subtitle: 'Computational biology, computational pathology, and pathology-omics AI.',
     tags: ['Single Cell', 'Spatial Omics', 'Pathology AI', 'Omics'],
-    url: `${window.location.href.split('#')[0]}#${chosen}`,
+    url: `${window.location.href.split('#')[0]}#${pageKey}`,
     tone: 'home'
   };
-  updateSharePreview();
 }
 
 function getPageFromHash() {
   const hash = window.location.hash.replace('#', '').trim();
-  if (['home-introduction', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'].includes(hash)) return 'home';
-  return hash || 'home';
+  if (!hash) return 'home';
+  if (hash === 'home-introduction') return 'home';
+  return hash;
 }
 
 function activatePage(pageKey, options = {}) {
@@ -2206,13 +2201,12 @@ function activatePage(pageKey, options = {}) {
   document.querySelectorAll('[data-page]').forEach((item) => item.classList.remove('active'));
   target.classList.add('is-active');
   document.querySelectorAll(`[data-page="${pageKey}"]`).forEach((item) => item.classList.add('active'));
-  if (pageKey === 'home') {
-    const hash = window.location.hash.replace('#', '').trim();
-    setHomeSection(homeSectionIds.includes(hash) ? hash : 'home-introduction');
+  if (homePages.includes(pageKey)) {
+    currentShare = buildShareFromHomePage(pageKey);
   } else {
     currentShare = buildShareFromTopic(pageKey);
-    updateSharePreview();
   }
+  updateSharePreview();
   if (updateHash) window.location.hash = pageKey;
   window.scrollTo({ top: 0, behavior: smoothScroll ? 'smooth' : 'auto' });
   return true;
@@ -2229,11 +2223,8 @@ document.addEventListener('click', (event) => {
   const homeAnchor = event.target.closest('.home-anchor-link');
   if (homeAnchor) {
     event.preventDefault();
-    const targetId = homeAnchor.getAttribute('href')?.replace('#', '') || 'home-introduction';
-    activatePage('home', { updateHash: false, smoothScroll: false });
-    setHomeSection(targetId);
-    history.replaceState(null, '', `#${targetId}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const targetPage = homeAnchor.dataset.page || homeAnchor.getAttribute('href')?.replace('#', '') || 'home';
+    activatePage(targetPage, { updateHash: true, smoothScroll: true });
     return;
   }
 
@@ -2269,25 +2260,12 @@ document.addEventListener('click', (event) => {
 });
 
 window.addEventListener('hashchange', () => {
-  const hash = window.location.hash.replace('#', '').trim();
-  if (homeSectionIds.includes(hash)) {
-    activatePage('home', { updateHash: false, smoothScroll: false });
-    setHomeSection(hash);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
   const ok = activatePage(getPageFromHash(), { updateHash: false, smoothScroll: false });
   if (!ok) activatePage('home', { updateHash: false, smoothScroll: false });
 });
 
 const initialOk = activatePage(getPageFromHash(), { updateHash: false, smoothScroll: false });
 if (!initialOk) activatePage('home', { updateHash: false, smoothScroll: false });
-
-const initialHash = window.location.hash.replace('#', '').trim();
-if (homeSectionIds.includes(initialHash)) {
-  activatePage('home', { updateHash: false, smoothScroll: false });
-  setHomeSection(initialHash);
-}
 
 const filterRow = document.getElementById('filterRow');
 const searchInput = document.getElementById('globalSearch');

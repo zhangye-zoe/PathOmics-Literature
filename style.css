@@ -4895,3 +4895,789 @@ html[data-theme="dark"] .intro-mini-list span { background: rgba(255,255,255,.03
   .intro-layout-clean { grid-template-columns: 1fr !important; }
   .intro-highlight-grid-clean, .intro-topic-board-clean { grid-template-columns: 1fr !important; }
 }
+
+
+/* =========================================================
+   Neo Home Refresh · cinematic research dashboard
+   ========================================================= */
+#page-home .home-neo-hero {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  min-height: 710px;
+  border-radius: 34px !important;
+  border: 1px solid rgba(125, 145, 190, .28) !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(70, 112, 255, .22), transparent 31%),
+    radial-gradient(circle at 82% 13%, rgba(76, 216, 186, .18), transparent 26%),
+    radial-gradient(circle at 74% 82%, rgba(255, 157, 95, .16), transparent 30%),
+    linear-gradient(135deg, rgba(255,255,255,.86), rgba(247,252,255,.70) 44%, rgba(255,248,241,.76)) !important;
+  box-shadow:
+    0 24px 80px rgba(49, 78, 118, .16),
+    inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+html[data-theme="dark"] #page-home .home-neo-hero {
+  border-color: rgba(153, 184, 255, .22) !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(86, 119, 255, .24), transparent 32%),
+    radial-gradient(circle at 82% 13%, rgba(58, 220, 188, .14), transparent 28%),
+    radial-gradient(circle at 74% 82%, rgba(255, 139, 82, .13), transparent 30%),
+    linear-gradient(135deg, rgba(13, 18, 31, .94), rgba(19, 29, 44, .88) 52%, rgba(28, 22, 31, .90)) !important;
+  box-shadow: 0 28px 96px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.08) !important;
+}
+#page-home .home-neo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(110deg, transparent 0 33%, rgba(255,255,255,.46) 48%, transparent 62% 100%);
+  transform: translateX(-66%);
+  animation: neoSheen 8s ease-in-out infinite;
+  pointer-events: none;
+  opacity: .56;
+}
+html[data-theme="dark"] #page-home .home-neo-hero::before { opacity: .16; }
+@keyframes neoSheen { 0%, 40% { transform: translateX(-78%); } 72%, 100% { transform: translateX(82%); } }
+.neo-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(75, 116, 180, .13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75, 116, 180, .13) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 36%, #000 0, transparent 68%);
+}
+html[data-theme="dark"] .neo-grid { opacity: .22; }
+.neo-glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(28px);
+  pointer-events: none;
+}
+.neo-glow-one { width: 340px; height: 340px; left: -110px; top: -92px; background: rgba(64, 128, 255, .25); }
+.neo-glow-two { width: 380px; height: 380px; right: 7%; bottom: -152px; background: rgba(78, 210, 177, .22); }
+.neo-hero-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(330px, .75fr);
+  gap: clamp(28px, 5vw, 70px);
+  align-items: center;
+  padding: clamp(46px, 6vw, 86px) clamp(34px, 6vw, 78px) 34px;
+}
+.neo-hero-main { min-width: 0; }
+.neo-badge-row { margin-bottom: 22px !important; }
+.neo-title-block { display: flex; gap: 16px; align-items: flex-start; }
+.neo-title-mark {
+  width: 12px;
+  min-width: 12px;
+  height: clamp(62px, 7vw, 92px);
+  margin-top: 7px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #3d8dff, #52d6b7 52%, #f6a75f);
+  box-shadow: 0 0 0 8px rgba(79, 141, 255, .10), 0 18px 35px rgba(67, 124, 255, .22);
+}
+#page-home .neo-title {
+  max-width: 900px !important;
+  font-size: clamp(39px, 5.1vw, 78px) !important;
+  line-height: .95 !important;
+  letter-spacing: -.07em !important;
+  font-family: var(--font-ui) !important;
+  font-weight: 900 !important;
+  background: linear-gradient(92deg, #172131 0%, #2459a6 42%, #178a7b 72%, #ba6c3a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  text-wrap: balance;
+}
+html[data-theme="dark"] #page-home .neo-title {
+  background: linear-gradient(92deg, #f7fbff 0%, #9dbbff 42%, #7ce4d0 72%, #ffc48f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+#page-home .neo-lead {
+  max-width: 860px !important;
+  margin-top: 20px !important;
+  font-size: clamp(15px, 1.18vw, 18px) !important;
+  line-height: 1.78 !important;
+  color: #4f5e6d !important;
+}
+html[data-theme="dark"] #page-home .neo-lead { color: rgba(224, 232, 245, .78) !important; }
+.neo-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+#page-home .neo-primary {
+  padding: 11px 18px !important;
+  background: linear-gradient(135deg, #2f80ed, #3bbfa8) !important;
+  box-shadow: 0 14px 34px rgba(45, 126, 237, .24) !important;
+}
+#page-home .neo-ghost {
+  padding: 11px 17px !important;
+  border-color: rgba(61, 96, 128, .20) !important;
+  background: rgba(255,255,255,.48) !important;
+  backdrop-filter: blur(12px);
+}
+html[data-theme="dark"] #page-home .neo-ghost { background: rgba(255,255,255,.07) !important; border-color: rgba(225,235,255,.13) !important; }
+.neo-metric-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 34px;
+  max-width: 860px;
+}
+.neo-metric {
+  display: grid;
+  gap: 5px;
+  padding: 14px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(91, 128, 170, .18);
+  background: rgba(255,255,255,.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.66), 0 10px 24px rgba(55, 85, 116, .07);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+.neo-metric:hover { transform: translateY(-3px); border-color: rgba(50, 135, 220, .32); background: rgba(255,255,255,.68); }
+.neo-metric strong { font-family: var(--font-mono); color: #2f80ed; font-size: 12px; letter-spacing: .08em; }
+.neo-metric span { color: var(--text); font-weight: 800; font-size: 12.5px; line-height: 1.25; }
+html[data-theme="dark"] .neo-metric { background: rgba(255,255,255,.06); border-color: rgba(220,235,255,.12); }
+html[data-theme="dark"] .neo-metric strong { color: #8fb8ff; }
+.neo-constellation-card {
+  position: relative;
+  border-radius: 30px;
+  border: 1px solid rgba(95, 126, 166, .22);
+  background: linear-gradient(180deg, rgba(255,255,255,.66), rgba(255,255,255,.34));
+  backdrop-filter: blur(22px);
+  padding: 22px;
+  box-shadow: 0 22px 70px rgba(43, 70, 105, .13), inset 0 1px 0 rgba(255,255,255,.72);
+  overflow: hidden;
+}
+html[data-theme="dark"] .neo-constellation-card { background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035)); border-color: rgba(225,235,255,.14); }
+.neo-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom: 16px; }
+.neo-card-head span { font-family: var(--font-mono); font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; color: #2f80ed; }
+.neo-card-head em { font-style: normal; border: 1px solid rgba(72, 132, 200, .16); border-radius: 999px; padding: 4px 8px; font-size: 10px; font-weight: 800; color: var(--muted); background: rgba(255,255,255,.42); }
+.neo-orbit { position: relative; height: 210px; margin: 3px 0 8px; }
+.orbit-ring { position: absolute; inset: 18px 50px; border-radius: 50%; border: 1px dashed rgba(63, 119, 196, .32); }
+.orbit-ring-two { inset: 48px 86px; transform: rotate(-18deg); border-color: rgba(67, 190, 168, .34); }
+.orbit-core {
+  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:74px; height:74px; border-radius: 28px;
+  display:grid; place-items:center;
+  font-family: var(--font-display); font-weight: 760; font-size: 25px;
+  color:#fff; background: linear-gradient(135deg, #2f80ed, #42d0af);
+  box-shadow: 0 18px 40px rgba(47,128,237,.28);
+}
+.orbit-node {
+  position: absolute;
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(80, 115, 155, .18);
+  box-shadow: 0 8px 24px rgba(44, 70, 102, .10);
+}
+.node-bio { left: 14%; top: 22%; color: #2f80ed; }
+.node-path { right: 14%; top: 26%; color: #b9654e; }
+.node-spatial { left: 16%; bottom: 17%; color: #238f82; }
+.node-dyn { right: 7%; bottom: 23%; color: #7b64c8; }
+html[data-theme="dark"] .orbit-node { background: rgba(255,255,255,.10); border-color: rgba(225,235,255,.14); }
+.neo-constellation-card h3 {
+  margin: 14px 0 7px;
+  font-family: var(--font-display);
+  font-size: 25px;
+  line-height: 1.08;
+  letter-spacing: -.03em;
+}
+.neo-constellation-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.62; }
+.neo-route-list { display: grid; gap: 9px; margin-top: 18px; }
+.neo-route-list span {
+  display: flex; gap: 10px; align-items: center;
+  padding: 10px 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(90, 123, 155, .16);
+  background: rgba(255,255,255,.40);
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 12px;
+}
+.neo-route-list b { color: #2f80ed; font-family: var(--font-mono); font-size: 10px; }
+html[data-theme="dark"] .neo-route-list span { background: rgba(255,255,255,.055); border-color: rgba(225,235,255,.11); }
+.neo-feature-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0 clamp(34px, 6vw, 78px) 16px;
+}
+.neo-feature-card {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr);
+  gap: 14px;
+  align-items: start;
+  min-height: 142px;
+  border-radius: 25px;
+  padding: 18px;
+  border: 1px solid rgba(90, 123, 155, .16);
+  background: rgba(255,255,255,.48);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.68), 0 12px 30px rgba(53, 86, 116, .07);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.neo-feature-card:hover { transform: translateY(-5px); box-shadow: 0 18px 42px rgba(51, 84, 115, .12); }
+.neo-feature-icon { width: 43px; height: 43px; border-radius: 16px; display:grid; place-items:center; background: rgba(255,255,255,.58); box-shadow: inset 0 1px 0 rgba(255,255,255,.78); }
+.neo-feature-card h3 { margin: 2px 0 7px; font-size: 15px; letter-spacing: -.02em; }
+.neo-feature-card p { margin:0; color: var(--muted); font-size: 12.5px; line-height: 1.58; }
+.neo-feature-card.neo-bio { border-color: rgba(47,128,237,.18); }
+.neo-feature-card.neo-bio h3 { color:#2f80ed; }
+.neo-feature-card.neo-path { border-color: rgba(185,101,78,.18); }
+.neo-feature-card.neo-path h3 { color:#b9654e; }
+.neo-feature-card.neo-omics { border-color: rgba(35,143,130,.18); }
+.neo-feature-card.neo-omics h3 { color:#238f82; }
+html[data-theme="dark"] .neo-feature-card { background: rgba(255,255,255,.055); border-color: rgba(225,235,255,.12); box-shadow: none; }
+.neo-topic-dock {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr .9fr;
+  gap: 14px;
+  padding: 0 clamp(34px, 6vw, 78px) clamp(30px, 4vw, 44px);
+}
+.dock-panel {
+  border-radius: 24px;
+  padding: 18px;
+  border: 1px solid rgba(90, 123, 155, .16);
+  background: rgba(255,255,255,.38);
+  backdrop-filter: blur(14px);
+}
+html[data-theme="dark"] .dock-panel { background: rgba(255,255,255,.045); border-color: rgba(225,235,255,.11); }
+.dock-title { display:flex; align-items:center; gap:10px; margin-bottom: 12px; }
+.dock-title span { font-family: var(--font-mono); font-weight: 900; font-size: 10px; letter-spacing: .08em; color: #2f80ed; }
+.dock-title h3 { margin: 0; font-family: var(--font-display); font-size: 19px; letter-spacing: -.025em; }
+.dock-path .dock-title span { color:#b9654e; }
+.dock-bridge .dock-title span { color:#238f82; }
+.neo-tags { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+.neo-tags a,
+.neo-tags span {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 9px;
+  border: 1px solid rgba(79, 109, 140, .17);
+  background: rgba(255,255,255,.42);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+}
+.neo-tags a:hover { transform: translateY(-1px); color: #2f80ed; border-color: rgba(47,128,237,.30); }
+html[data-theme="dark"] .neo-tags a, html[data-theme="dark"] .neo-tags span { background: rgba(255,255,255,.06); border-color: rgba(225,235,255,.12); }
+#page-home .panel-card:not(.home-neo-hero) {
+  border-radius: 28px !important;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(47,128,237,.05), transparent 28%),
+    rgba(255,255,255,.76) !important;
+  box-shadow: 0 18px 58px rgba(50, 78, 108, .10), inset 0 1px 0 rgba(255,255,255,.68) !important;
+}
+html[data-theme="dark"] #page-home .panel-card:not(.home-neo-hero) {
+  background: radial-gradient(circle at 0% 0%, rgba(143,184,255,.08), transparent 28%), rgba(19, 27, 39, .82) !important;
+}
+@media (max-width: 1180px) {
+  .neo-hero-layout { grid-template-columns: 1fr; }
+  .neo-constellation-card { max-width: 560px; }
+  .neo-feature-grid, .neo-topic-dock { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  #page-home .home-neo-hero { min-height: unset; }
+  .neo-hero-layout, .neo-feature-grid, .neo-topic-dock { padding-left: 18px; padding-right: 18px; }
+  .neo-metric-strip { grid-template-columns: 1fr; }
+  #page-home .neo-title { font-size: clamp(35px, 12vw, 52px) !important; }
+  .neo-title-block { gap: 11px; }
+  .neo-title-mark { height: 68px; }
+  .neo-orbit { height: 175px; }
+  .orbit-ring { inset: 16px 34px; }
+  .orbit-ring-two { inset: 44px 65px; }
+}
+
+
+/* =========================================================
+   v21.1 Introduction Rebuild · command-center hero
+   Removes the old bulky area cards and topic dock from Home.
+   ========================================================= */
+#page-home .home-neo-hero {
+  min-height: min(760px, calc(100vh - 70px)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  isolation: isolate;
+}
+
+#page-home .home-neo-hero::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 28px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(111,82,184,.20), transparent) top / 100% 1px no-repeat,
+    linear-gradient(180deg, transparent, rgba(47,128,237,.16), transparent) left / 1px 100% no-repeat,
+    radial-gradient(circle at 28% 30%, rgba(127,98,202,.12), transparent 34%),
+    radial-gradient(circle at 78% 62%, rgba(66,208,175,.12), transparent 34%);
+  opacity: .9;
+  z-index: 0;
+}
+
+#page-home .neo-hero-layout {
+  grid-template-columns: minmax(0, 1.22fr) minmax(320px, .78fr) !important;
+  padding: clamp(42px, 5.4vw, 74px) clamp(34px, 6vw, 78px) 22px !important;
+  gap: clamp(26px, 5vw, 64px) !important;
+}
+
+#page-home .neo-title-block {
+  align-items: center !important;
+}
+
+#page-home .neo-title-mark {
+  height: clamp(70px, 8vw, 118px) !important;
+  background: linear-gradient(180deg, #8c6cff, #2f80ed 42%, #42d0af 100%) !important;
+  box-shadow:
+    0 0 0 10px rgba(127, 98, 202, .10),
+    0 0 38px rgba(127, 98, 202, .28),
+    0 22px 46px rgba(47, 128, 237, .20) !important;
+}
+
+#page-home .neo-title {
+  font-size: clamp(42px, 5.6vw, 82px) !important;
+  line-height: .94 !important;
+  letter-spacing: -.075em !important;
+  background: linear-gradient(94deg, #151b2d 0%, #5942b7 34%, #2f80ed 60%, #148f83 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+html[data-theme="dark"] #page-home .neo-title {
+  background: linear-gradient(94deg, #ffffff 0%, #cabdff 35%, #92bfff 62%, #7ce4d0 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+#page-home .neo-lead {
+  max-width: 780px !important;
+  color: rgba(63, 73, 94, .90) !important;
+}
+
+html[data-theme="dark"] #page-home .neo-lead {
+  color: rgba(232, 238, 252, .78) !important;
+}
+
+#page-home .neo-metric-strip,
+#page-home .neo-feature-grid,
+#page-home .neo-topic-dock {
+  display: none !important;
+}
+
+#page-home .neo-constellation-card {
+  transform: translateY(2px);
+  border-color: rgba(127, 98, 202, .22) !important;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(127,98,202,.14), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.36)) !important;
+}
+
+#page-home .neo-card-head span,
+#page-home .neo-route-list b {
+  color: #6f52b8 !important;
+}
+
+#page-home .orbit-core {
+  background: linear-gradient(135deg, #7f62ca, #2f80ed 58%, #42d0af) !important;
+  box-shadow: 0 20px 52px rgba(105,84,174,.30) !important;
+}
+
+#page-home .orbit-ring {
+  border-color: rgba(127,98,202,.34) !important;
+}
+
+#page-home .orbit-ring-two {
+  border-color: rgba(47,128,237,.34) !important;
+}
+
+/* New compact command deck */
+.intro-command-deck {
+  position: relative;
+  z-index: 2;
+  margin: 8px clamp(34px, 6vw, 78px) clamp(32px, 4vw, 48px);
+  padding: 18px;
+  border-radius: 30px;
+  border: 1px solid rgba(105, 84, 174, .18);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.66), rgba(255,255,255,.35)),
+    radial-gradient(circle at 8% 0%, rgba(127,98,202,.10), transparent 28%),
+    radial-gradient(circle at 88% 100%, rgba(47,128,237,.10), transparent 30%);
+  box-shadow:
+    0 20px 58px rgba(57, 72, 114, .11),
+    inset 0 1px 0 rgba(255,255,255,.68);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+
+.intro-command-deck::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(105,84,174,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(105,84,174,.08) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at 50% 50%, #000 0, transparent 76%);
+  opacity: .55;
+  pointer-events: none;
+}
+
+.intro-command-deck::after {
+  content: "";
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(127,98,202,.32), rgba(47,128,237,.26), transparent);
+  pointer-events: none;
+}
+
+html[data-theme="dark"] .intro-command-deck {
+  border-color: rgba(202,189,255,.16);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.035)),
+    radial-gradient(circle at 8% 0%, rgba(202,189,255,.09), transparent 30%),
+    radial-gradient(circle at 88% 100%, rgba(143,184,255,.08), transparent 32%);
+  box-shadow: 0 22px 68px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.command-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+
+.command-kicker {
+  grid-column: 1 / -1;
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6f52b8;
+  background: rgba(127,98,202,.10);
+  border: 1px solid rgba(127,98,202,.16);
+}
+
+.command-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #7f62ca;
+  box-shadow: 0 0 18px rgba(127,98,202,.75);
+}
+
+.command-copy h3 {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(24px, 2.7vw, 38px);
+  line-height: 1.04;
+  letter-spacing: -.055em;
+  font-weight: 900;
+  color: var(--text);
+}
+
+.command-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.68;
+}
+
+.command-flow {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.command-node {
+  position: relative;
+  min-height: 122px;
+  padding: 17px 16px 16px;
+  border-radius: 23px;
+  border: 1px solid rgba(105,84,174,.16);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
+  box-shadow:
+    0 12px 30px rgba(49,65,105,.08),
+    inset 0 1px 0 rgba(255,255,255,.74);
+  transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  overflow: hidden;
+}
+
+.command-node::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  opacity: .18;
+  background: radial-gradient(circle at 18% 14%, currentColor, transparent 34%);
+  pointer-events: none;
+}
+
+.command-node::after {
+  content: "";
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  right: -18px;
+  bottom: -18px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: .22;
+}
+
+.command-node:hover {
+  transform: translateY(-5px);
+  border-color: rgba(105,84,174,.34);
+  box-shadow: 0 20px 42px rgba(49,65,105,.12);
+}
+
+.command-node span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 26px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 900;
+  color: currentColor;
+  background: rgba(255,255,255,.64);
+  border: 1px solid rgba(105,84,174,.14);
+}
+
+.command-node strong {
+  display: block;
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  color: var(--text);
+}
+
+.command-node em {
+  display: block;
+  margin-top: 7px;
+  font-style: normal;
+  color: var(--muted);
+  font-size: 11.8px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.command-node-purple { color: #7f62ca; }
+.command-node-blue { color: #2f80ed; }
+.command-node-teal { color: #238f82; }
+.command-node-rose { color: #b96582; }
+
+html[data-theme="dark"] .command-node {
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+  border-color: rgba(225,235,255,.12);
+  box-shadow: none;
+}
+
+html[data-theme="dark"] .command-node span {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(225,235,255,.14);
+}
+
+.command-bottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+.command-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #5d4aaa;
+  background: rgba(127,98,202,.08);
+  border: 1px solid rgba(127,98,202,.14);
+  font-size: 11.5px;
+  font-weight: 850;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.command-pill:hover {
+  transform: translateY(-2px);
+  background: rgba(127,98,202,.13);
+  border-color: rgba(127,98,202,.26);
+}
+
+html[data-theme="dark"] .command-pill {
+  color: #d8cdff;
+  background: rgba(216,205,255,.08);
+  border-color: rgba(216,205,255,.13);
+}
+
+/* New Papers panel: use the same purple system as other Home pages, not yellow/gold. */
+.accepted-panel {
+  border-color: rgba(105,84,174,.16) !important;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(127,98,202,.085), transparent 32%),
+    rgba(255,255,255,.78) !important;
+}
+
+html[data-theme="dark"] .accepted-panel {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(216,205,255,.10), transparent 32%),
+    rgba(19, 27, 39, .84) !important;
+}
+
+.accepted-panel .home-section-badge,
+#recent-accepted .home-section-badge {
+  background: linear-gradient(135deg, #7f62ca, #55419d) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 22px rgba(85,65,157,.20) !important;
+}
+
+.accepted-panel .queue-index,
+#recentAcceptedPapers .queue-index {
+  color: #6f52b8 !important;
+  background: rgba(127,98,202,.085) !important;
+  border-color: rgba(127,98,202,.18) !important;
+}
+
+.accepted-panel .queue-card,
+#recentAcceptedPapers .queue-card {
+  border-color: rgba(105,84,174,.15) !important;
+  border-left-color: rgba(127,98,202,.42) !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.68), rgba(251,249,255,.50)),
+    linear-gradient(90deg, rgba(127,98,202,.055), transparent 42%) !important;
+  box-shadow: 0 12px 28px rgba(72,48,120,.055) !important;
+}
+
+.accepted-panel .queue-tag,
+#recentAcceptedPapers .queue-tag,
+.accepted-panel .queue-meta > span,
+#recentAcceptedPapers .queue-meta > span {
+  color: #6f52b8 !important;
+  border-color: rgba(127,98,202,.16) !important;
+  background: rgba(127,98,202,.065) !important;
+}
+
+html[data-theme="dark"] .accepted-panel .queue-card,
+html[data-theme="dark"] #recentAcceptedPapers .queue-card {
+  background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03)) !important;
+  border-color: rgba(216,205,255,.14) !important;
+  border-left-color: rgba(216,205,255,.45) !important;
+}
+
+html[data-theme="dark"] .accepted-panel .queue-index,
+html[data-theme="dark"] #recentAcceptedPapers .queue-index {
+  color: #d8cdff !important;
+  background: rgba(216,205,255,.08) !important;
+  border-color: rgba(216,205,255,.15) !important;
+}
+
+@media (max-width: 1180px) {
+  #page-home .neo-hero-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .intro-command-deck {
+    margin-left: 34px;
+    margin-right: 34px;
+  }
+  .command-flow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .command-copy {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  #page-home .home-neo-hero {
+    min-height: auto !important;
+  }
+  #page-home .neo-hero-layout {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  .intro-command-deck {
+    margin-left: 18px;
+    margin-right: 18px;
+    padding: 14px;
+  }
+  .command-flow {
+    grid-template-columns: 1fr;
+  }
+  .command-copy h3 {
+    font-size: 24px;
+  }
+}
+
+
+/* =========================================================
+   Home subpages split into separate screens
+   ========================================================= */
+.home-subpage .page-stack {
+  gap: 18px;
+}
+
+.home-subpage .panel-card {
+  border-radius: 28px !important;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(127,98,202,.05), transparent 28%),
+    rgba(255,255,255,.78) !important;
+  box-shadow: 0 18px 58px rgba(50, 78, 108, .10), inset 0 1px 0 rgba(255,255,255,.68) !important;
+}
+
+html[data-theme="dark"] .home-subpage .panel-card {
+  background: radial-gradient(circle at 0% 0%, rgba(216,205,255,.08), transparent 28%), rgba(19, 27, 39, .84) !important;
+}
+
+.home-solo-stack {
+  min-height: calc(100vh - 132px);
+}
+
+.home-solo-stack > .panel-card {
+  width: 100%;
+}
+
+.home-subpage .section-head.clean-head {
+  margin-bottom: 18px;
+}
+
+.home-subpage .section-title {
+  letter-spacing: -.03em;
+}
