@@ -1219,16 +1219,40 @@ Object.assign(topics, {
     tone: 'bio',
     title: 'Multi-omics Integration',
     subtitle: 'Methods for aligning multiple molecular modalities while preserving shared biology, modality-specific signals and downstream interpretability.',
-    note: 'A good integration method should not only mix modalities. The note should ask what information is shared, what remains modality-specific, whether pairing is required, and whether the integrated space improves real biological questions.',
+    note: 'This folder focuses on high-impact Nature-family methods and a few classic benchmarks. Keep track of pairing assumptions, missing-modality design, regulatory priors and whether the integrated space helps downstream biological questions.',
     rows: [
       ['Shared and private signals', 'Separate common cell-state structure from modality-specific biological information.', null],
       ['Pairing design', 'Track whether the method supports paired, partially paired, mosaic or unpaired observations.', null],
       ['Evaluation depth', 'Look beyond mixing metrics: cross-modal prediction, biological conservation and temporal validity matter.', null]
     ],
     papers: [
+      paper('Nature Methods 2018', 'Deep Generative Modeling for Single-cell Transcriptomics', ['scVI', 'Generative Model', 'Single-cell RNA'], 'A classic deep generative framework for probabilistic single-cell representation learning and batch-aware transcriptomic analysis.', 'https://www.nature.com/articles/s41592-018-0229-2', {
+        question: 'Can a probabilistic neural model learn robust latent representations for noisy single-cell RNA-seq data?',
+        method: 'Uses variational inference to model gene expression uncertainty and learn a low-dimensional latent cell representation.',
+        value: 'Classic foundation for later scvi-tools models, including totalVI and MultiVI.',
+        caution: 'It is not a multi-omics integrator by itself, but it is essential background for modern generative integration.'
+      }),
+      paper('Nature Methods 2019', 'Fast, Sensitive and Accurate Integration of Single-cell Data with Harmony', ['Harmony', 'Batch Correction', 'Classic'], 'A widely used integration method for removing batch effects and aligning single-cell datasets in a shared embedding.', 'https://www.nature.com/articles/s41592-019-0619-0', {
+        question: 'Can diverse single-cell datasets be harmonized without erasing biological variation?',
+        method: 'Iteratively adjusts cell embeddings to reduce dataset-specific effects while preserving cluster structure.',
+        value: 'Classic baseline for integration and batch correction, even beyond strict Nature-subjournal multi-omics papers.',
+        caution: 'Batch mixing does not guarantee modality-aware or mechanistically interpretable integration.'
+      }),
+      paper('Nature Biotechnology 2021', 'Single-cell Transcriptomic and Chromatin Accessibility Profiling Redefine Cellular Heterogeneity in the Adult Human Kidney', ['Multiome Atlas', 'RNA ATAC', 'Kidney'], 'A paired transcriptome and chromatin accessibility atlas that is useful as a biological reference for multimodal integration.', 'https://www.nature.com/articles/s41467-021-22368-w', {
+        question: 'How can paired RNA and ATAC profiling refine tissue cell states and regulatory programs?',
+        method: 'Profiles transcriptomic and chromatin accessibility landscapes at single-cell resolution.',
+        value: 'Useful biological case study for evaluating whether integration preserves regulatory cell-state information.',
+        caution: 'This is an application atlas rather than a general integration algorithm.'
+      }),
+      paper('Nature Methods 2021', 'Joint Probabilistic Modeling of Single-cell Multi-omic Data with TotalVI', ['totalVI', 'RNA Protein', 'Generative Model'], 'A probabilistic model for joint RNA and protein analysis in CITE-seq and related multimodal datasets.', 'https://www.nature.com/articles/s41592-020-01050-x', {
+        question: 'Can RNA and protein modalities be jointly modeled while accounting for technical noise?',
+        method: 'Uses a deep generative model to represent RNA counts and protein abundance in a shared latent space.',
+        value: 'Classic reference for RNA-protein multimodal integration and protein prediction.',
+        caution: 'Best suited to jointly measured RNA-protein data rather than fully unpaired modality alignment.'
+      }),
       paper('Nature Biotechnology 2022', 'Multi-omics Single-cell Data Integration and Regulatory Inference with GLUE', ['GLUE', 'Unpaired Data', 'Regulatory Graph'], 'Graph-linked integration for unpaired single-cell multi-omics and regulatory inference.', 'https://www.nature.com/articles/s41587-022-01284-4', {
         question: 'Can unpaired modalities be integrated while retaining regulatory interpretability?',
-        method: 'Links omics-specific feature spaces through a guidance graph and joint embedding.',
+        method: 'Links omics-specific feature spaces through a prior guidance graph and joint embedding.',
         value: 'Strong baseline for unpaired RNA and ATAC integration with regulatory interpretation.',
         caution: 'Good alignment does not necessarily imply good temporal or causal modeling.'
       }),
@@ -1238,11 +1262,29 @@ Object.assign(topics, {
         value: 'Important for realistic single-cell datasets where not every modality is measured everywhere.',
         caution: 'Imputation quality should be evaluated separately from visual embedding quality.'
       }),
-      paper('Nature Biotechnology 2024', 'Mosaic Integration and Knowledge Transfer of Single-cell Multimodal Data', ['MIDAS', 'Mosaic Integration', 'Knowledge Transfer'], 'A deep probabilistic framework for integrating datasets that share only subsets of modalities.', 'https://www.nature.com/articles/s41587-023-02040-y', {
-        question: 'Can knowledge transfer work when different datasets contain different modality combinations?',
-        method: 'Models mosaic data using probabilistic latent variables and modality transfer.',
-        value: 'Relevant for real multi-cohort studies with incomplete measurement designs.',
-        caution: 'Need to check whether transferred modalities preserve cell-type and disease-specific structure.'
+      paper('Nature Communications 2023', 'Histopathology Images Predict Multi-omics Aberrations and Prognoses in Colorectal Cancer Patients', ['Pathology Omics', 'Molecular Prediction', 'Cancer'], 'A representative image-to-omics study linking histology with molecular aberrations and clinical outcomes.', 'https://www.nature.com/articles/s41467-023-37179-4', {
+        question: 'Can routine histopathology images predict molecular alterations and prognosis?',
+        method: 'Trains deep learning models on pathology images and connects predictions to genomic and transcriptomic features.',
+        value: 'Useful bridge paper between multi-omics integration and computational pathology.',
+        caution: 'Prediction from morphology needs careful external validation and cancer-type-specific interpretation.'
+      }),
+      paper('Nature Biotechnology 2024', 'Dictionary Learning for Integrative, Multimodal and Scalable Single-cell Analysis', ['Seurat v5', 'Bridge Integration', 'Reference Mapping'], 'A scalable dictionary-learning and bridge-integration strategy for mapping diverse single-cell modalities.', 'https://www.nature.com/articles/s41587-023-01767-y', {
+        question: 'Can a multiomic reference bridge datasets measured with different technologies?',
+        method: 'Learns shared dictionaries and uses bridge datasets to transfer structure across modalities.',
+        value: 'Important practical reference for atlas-scale multimodal integration.',
+        caution: 'Performance depends on the quality and coverage of the bridge reference.'
+      }),
+      paper('Nature Methods 2024', 'Benchmarking Algorithms for Single-cell Multi-omics Prediction and Integration', ['Benchmark', 'Prediction', 'Integration'], 'A systematic benchmark of prediction and integration algorithms across single-cell multi-omics datasets.', 'https://www.nature.com/articles/s41592-024-02429-w', {
+        question: 'Which integration and modality-prediction methods work best across tasks and datasets?',
+        method: 'Benchmarks many algorithms on multi-omics prediction and integration tasks.',
+        value: 'Useful for choosing baselines and understanding method limitations.',
+        caution: 'Benchmark rankings can change with preprocessing, metric choice and task definition.'
+      }),
+      paper('Nature Methods 2025', 'Multitask Benchmarking of Single-cell Multimodal Omics Integration Methods', ['scMultiBench', 'Benchmark', 'Multitask'], 'A recent multitask benchmark covering dimension reduction, batch correction, classification, clustering, imputation, feature selection and spatial registration.', 'https://www.nature.com/articles/s41592-025-02856-3', {
+        question: 'How should researchers choose multimodal integration methods for different downstream tasks?',
+        method: 'Systematically categorizes and benchmarks multimodal omics integration methods across multiple task families.',
+        value: 'Strong current reference for fair comparison and task-specific method selection.',
+        caution: 'Use the benchmark as guidance, not a substitute for dataset-specific validation.'
       })
     ]
   },
@@ -1251,34 +1293,118 @@ Object.assign(topics, {
     tone: 'bio',
     title: 'RNA Velocity & Cell Dynamics',
     subtitle: 'RNA velocity, multimodal velocity, latent time, trajectory inference, fate landscapes and transition modeling from static or time-resolved single-cell data.',
-    note: 'This folder merges the old RNA velocity and trajectory inference pages. It is better to read these papers together because they all ask how static single-cell snapshots imply temporal transition.',
+    note: 'This folder merges RNA velocity, trajectory inference, fate mapping, optimal transport and neural differential equation models. The skipped screenshot item on dynamical systems modeling with spatiotemporal scRNA-seq was intentionally not added.',
     rows: [
       ['Velocity', 'Infer transition direction using spliced/unspliced RNA, chromatin accessibility or multimodal kinetic assumptions.', null],
       ['Latent time', 'Order asynchronous cells along biological progression and branch structures.', null],
       ['Fate landscape', 'Model terminal states, lineage commitment and future-state prediction.', null]
     ],
     papers: [
-      paper('Nature Communications 2025', 'Inferring Differential Dynamics from Multi-lineage Multiomic and Multi-sample Single-cell Data with MultiVeloVAE', ['MultiVeloVAE', 'Velocity', 'Multiomics'], 'A probabilistic framework for multi-sample and multiomic velocity inference across lineages and partially overlapping modalities.', 'https://www.nature.com/articles/s41467-025-66287-6', {
+      paper('Nature Biotechnology 2020', 'Generalizing RNA Velocity to Transient Cell States through Dynamical Modeling', ['scVelo', 'RNA Velocity', 'Latent Time'], 'A foundational dynamical RNA velocity model that handles transient cell states and recovers latent time.', 'https://www.nature.com/articles/s41587-020-0591-3', {
+        question: 'How can RNA velocity be extended beyond steady-state assumptions?',
+        method: 'Solves full transcriptional dynamics of splicing kinetics using a likelihood-based dynamical model.',
+        value: 'Essential starting point for modern RNA velocity and latent-time modeling.',
+        caution: 'Velocity still depends on kinetic assumptions and data preprocessing choices.'
+      }),
+      paper('Nature Communications 2022', 'UniTVelo: Temporally Unified RNA Velocity Reinforces Single-cell Trajectory Inference', ['UniTVelo', 'RNA Velocity', 'Temporal Regularization'], 'A temporally unified RNA velocity framework that improves trajectory inference with flexible transcription activities.', 'https://www.nature.com/articles/s41467-022-34188-7', {
+        question: 'Can temporal regularization make RNA velocity more robust?',
+        method: 'Models spliced and unspliced RNA dynamics with flexible transcription activities and updated cell time.',
+        value: 'Good comparison point for methods that stabilize velocity directions.',
+        caution: 'Direction inference can still be sensitive to trajectory structure and preprocessing.'
+      }),
+      paper('ICML 2022', 'Variational Mixtures of ODEs for Inferring Cellular Gene Expression Dynamics', ['VeloVAE', 'ODE', 'Latent Time'], 'A variational mixture of ODEs for jointly inferring cell time and gene expression dynamics from single-cell data.', 'https://proceedings.mlr.press/v162/gu22a.html', {
+        question: 'Can latent time and future gene expression be inferred when observation times are unknown?',
+        method: 'Uses a deep generative model constrained by ODE-based gene expression dynamics.',
+        value: 'Classic non-Nature method worth keeping because it is closely related to MultiVeloVAE and dynamic state prediction.',
+        caution: 'ODE assumptions and branching design should be compared with more recent multiomic models.'
+      }),
+      paper('Nature Methods 2022', 'CellRank for Directed Single-cell Fate Mapping', ['CellRank', 'Fate Mapping', 'Markov Model'], 'A directed fate-mapping framework that combines transition information with Markov state modeling.', 'https://www.nature.com/articles/s41592-021-01346-6', {
+        question: 'How can transition directions be converted into terminal states and fate probabilities?',
+        method: 'Builds transition kernels and computes fate probabilities through Markov modeling.',
+        value: 'Important bridge from velocity vectors to interpretable fate decisions.',
+        caution: 'Terminal-state identification and kernel choice require biological checking.'
+      }),
+      paper('arXiv 2022', 'Pyro-Velocity: Probabilistic RNA Velocity Inference from Single-cell Data', ['Pyro-Velocity', 'Bayesian', 'Uncertainty'], 'A Bayesian generative RNA velocity model for uncertainty-aware future-state estimation.', 'https://doi.org/10.1101/2022.09.12.507691', {
+        question: 'Can RNA velocity quantify uncertainty in cell future states?',
+        method: 'Uses probabilistic generative modeling to estimate RNA velocity and future-state uncertainty.',
+        value: 'Useful for reading velocity predictions as distributions rather than deterministic arrows.',
+        caution: 'Preprint status and benchmark coverage should be checked before treating it as a standard baseline.'
+      }),
+      paper('Nature Biotechnology 2023', 'Multi-omic Single-cell Velocity Models Epigenome-transcriptome Interactions and Improves Cell Fate Prediction', ['MultiVelo', 'Chromatin Velocity', 'Epigenome Transcriptome'], 'A mechanistic model extending RNA velocity to chromatin accessibility and transcriptome dynamics.', 'https://www.nature.com/articles/s41587-022-01476-y', {
+        question: 'Can chromatin accessibility improve cell fate prediction beyond RNA-only velocity?',
+        method: 'Couples chromatin and RNA kinetics on a shared temporal model.',
+        value: 'Key multimodal velocity paper for ATAC-to-RNA temporal relationships.',
+        caution: 'Requires assumptions about regulatory ordering and paired multiome data quality.'
+      }),
+      paper('Genome Biology 2024', 'DeepVelo: Deep Learning Extends RNA Velocity to Multi-lineage Systems with Cell-specific Kinetics', ['DeepVelo', 'Graph Neural Network', 'Cell-specific Kinetics'], 'A graph neural network approach for RNA velocity in multi-lineage systems with time-dependent kinetics.', 'https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-03148-9', {
+        question: 'Can velocity be modeled with cell-specific rather than global kinetic rates?',
+        method: 'Uses graph convolution networks to infer time-varying kinetic rates and dynamic driver genes.',
+        value: 'Useful for complex multi-lineage systems where fixed kinetics are unrealistic.',
+        caution: 'Deep learning flexibility can improve fit but may complicate mechanistic interpretation.'
+      }),
+      paper('Nature Methods 2024', 'Deep Generative Modeling of Transcriptional Dynamics for RNA Velocity Analysis in Single Cells', ['veloVI', 'Deep Generative Model', 'RNA Velocity'], 'A variational inference framework for RNA velocity that shares information across cells and genes while learning kinetic parameters and latent time.', 'https://www.nature.com/articles/s41592-023-01994-w', {
+        question: 'Can variational inference make RNA velocity more scalable and uncertainty-aware?',
+        method: 'Reformulates RNA velocity inference as a deep generative model in the scvi-tools ecosystem.',
+        value: 'Important modern baseline for probabilistic RNA velocity.',
+        caution: 'Interpretation should consider model assumptions and uncertainty estimates.'
+      }),
+      paper('Nature Biotechnology 2024', 'A Relay Velocity Model Infers Cell-dependent RNA Velocity', ['cellDancer', 'Relay Velocity', 'Cell-dependent Kinetics'], 'A cell-dependent RNA velocity model designed for multi-stage and multi-lineage transitions.', 'https://www.nature.com/articles/s41587-023-01728-5', {
+        question: 'Can cell-dependent kinetic rates improve velocity in heterogeneous transitions?',
+        method: 'Learns relay-style velocity dynamics with cell-dependent parameters.',
+        value: 'Strong reference for moving beyond global kinetic assumptions.',
+        caution: 'Model flexibility should be balanced against overfitting and interpretability.'
+      }),
+      paper('Cell 2026', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'Gene Regulation', 'Velocity'], 'A gene-regulatory-informed model linking splicing dynamics with regulatory circuitry for interpretable cell-state dynamics.', 'https://www.cell.com/cell/fulltext/S0092-8674(26)00457-5', {
+        question: 'Can gene regulatory structure make single-cell dynamics more mechanistically interpretable?',
+        method: 'Couples RNA velocity-style dynamics with gene regulatory information and in silico perturbation analysis.',
+        value: 'Highly relevant for connecting dynamic inference with regulatory mechanism.',
+        caution: 'Regulatory priors can help interpretation but may constrain discovery when priors are incomplete.'
+      }),
+      paper('Nature Methods 2024', 'CellRank 2: Unified Fate Mapping in Multiview Single-cell Data', ['CellRank 2', 'Fate Mapping', 'Multiview'], 'A scalable multiview framework for fate mapping across multiple single-cell modalities.', 'https://www.nature.com/articles/s41592-024-02303-9', {
+        question: 'How can fate mapping integrate pseudotime, velocity, experimental time and metabolic labeling?',
+        method: 'Combines multiple kernels in a unified Markov-state modeling framework for terminal states and fate probabilities.',
+        value: 'Important for reading CellRank-style dynamics beyond RNA velocity alone.',
+        caution: 'The chosen view or kernel can strongly shape inferred fate probabilities.'
+      }),
+      paper('Nature Communications 2025', 'TIVelo: RNA Velocity Estimation Leveraging Cluster-level Trajectory Inference', ['TIVelo', 'Trajectory Inference', 'RNA Velocity'], 'A velocity method that first determines direction at the cell-cluster level and then estimates cell-level velocity.', 'https://www.nature.com/articles/s41467-025-61628-x', {
+        question: 'Can cluster-level trajectory information stabilize RNA velocity direction?',
+        method: 'Determines velocity direction at cluster level before estimating individual-cell velocities.',
+        value: 'Useful for comparing local kinetic models with trajectory-guided velocity.',
+        caution: 'Cluster granularity and trajectory inference quality can influence final velocity.'
+      }),
+      paper('Nature Methods 2025', 'STORIES: Learning Cell Fate Landscapes from Spatial Transcriptomics Using Optimal Transport', ['STORIES', 'Optimal Transport', 'Spatial Dynamics'], 'An optimal-transport method for learning spatially informed differentiation potentials and fate landscapes.', 'https://www.nature.com/articles/s41592-025-02855-4', {
+        question: 'Can spatial transcriptomics time series reveal cell fate landscapes?',
+        method: 'Extends optimal transport to learn a spatially informed potential over differentiation.',
+        value: 'Important for connecting trajectory inference with spatial tissue context.',
+        caution: 'Requires careful interpretation of spatial transport and time-point design.'
+      }),
+      paper('Nature Communications 2025', 'GraphVelo Allows Accurate Inference of Multimodal Velocities and Molecular Mechanisms for Single Cells', ['GraphVelo', 'Multimodal Velocity', 'Mechanism'], 'A graph-based approach for multimodal velocity and molecular mechanism inference.', 'https://www.nature.com/articles/s41467-025-62784-w', {
+        question: 'Can graph structure improve velocity estimation and molecular mechanism discovery?',
+        method: 'Uses graph-theoretical representations of velocity and dynamical systems constraints.',
+        value: 'Useful for comparing dynamic graph models with latent-time approaches.',
+        caution: 'Graph construction can strongly affect inferred direction and downstream interpretation.'
+      }),
+      paper('Nature Communications 2025', 'Inferring Differential Dynamics from Multi-lineage, Multi-omic, and Multi-sample Single-cell Data with MultiVeloVAE', ['MultiVeloVAE', 'Velocity', 'Multiomics'], 'A probabilistic framework for multi-sample and multiomic velocity inference across lineages and partially overlapping modalities.', 'https://www.nature.com/articles/s41467-025-66287-6', {
         question: 'Can velocity models compare dynamic parameters across lineages, samples and modalities?',
         method: 'Uses variational Bayesian inference to place chromatin and RNA dynamics on a shared time scale.',
         value: 'Highly relevant for ATLAS-style lag and temporal modeling.',
         caution: 'Velocity depends on kinetic assumptions and needs careful lineage and root interpretation.'
       }),
-      paper('Nature Communications 2025', 'GraphVelo Allows Accurate Inference of Multimodal Velocities and Molecular Mechanisms for Single Cells', ['GraphVelo', 'Multimodal Velocity', 'Mechanism'], 'A graph-based approach for multimodal velocity and molecular mechanism inference.', 'https://www.nature.com/articles/s41467-025-67259-6', {
-        question: 'Can graph structure improve velocity estimation and molecular mechanism discovery?',
-        method: 'Combines neighborhood graph learning with multimodal signals to infer transition behavior.',
-        value: 'Useful for comparing dynamic graph models with latent-time based approaches.',
-        caution: 'Graph construction can strongly affect inferred direction and downstream interpretation.'
+      paper('Nature Machine Intelligence 2025', 'Learning Cell Dynamics with Neural Differential Equations', ['scDiffEq', 'Neural SDE', 'Cell Dynamics'], 'A neural differential equation framework for modeling deterministic and stochastic components of cell-state dynamics.', 'https://www.nature.com/articles/s42256-025-01150-3', {
+        question: 'Can neural differential equations model stochastic cell-state dynamics from snapshot measurements?',
+        method: 'Uses neural stochastic differential equations to learn drift-diffusion dynamics in single-cell state space.',
+        value: 'Important bridge between RNA velocity, optimal transport and generative dynamical systems.',
+        caution: 'Model outputs require validation against lineage, time-course or perturbation evidence.'
       }),
-      paper('Nature Methods 2024', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'Regulatory Dynamics', 'Velocity'], 'A velocity-style model that incorporates gene regulatory information to improve dynamic inference and interpretability.', 'https://www.nature.com/articles/s41592-024-02429-w', {
-        question: 'Can gene regulatory structure make single-cell dynamics more biologically interpretable?',
-        method: 'Integrates regulatory information into dynamic modeling of cell-state transitions.',
-        value: 'A strong reference for comparing dynamics models that go beyond pure transcript abundance.',
-        caution: 'Regulatory priors can help interpretation but may constrain discovery when priors are incomplete.'
+      paper('Nature Methods 2026', 'stVCR: Spatiotemporal Dynamics of Single Cells', ['stVCR', 'Spatiotemporal Dynamics', 'Spatial Transcriptomics'], 'A framework for reconstructing differentiation, proliferation, migration and spatial coordinates from time-series spatial transcriptomics.', 'https://www.nature.com/articles/s41592-026-03010-3', {
+        question: 'Can time-series spatial transcriptomics reconstruct continuous spatiotemporal cellular dynamics?',
+        method: 'Models differentiation, proliferation and migration jointly from spatial transcriptomic snapshots.',
+        value: 'Very useful for extending dynamic inference from cell-state space to physical tissue space.',
+        caution: 'Spatial sampling design and tissue registration assumptions should be checked carefully.'
       })
     ]
   },
-  'cbio-foundation': {
+    'cbio-foundation': {
     family: 'Computational Biology',
     tone: 'bio',
     title: 'Cell Foundation Models',
@@ -2014,7 +2140,7 @@ function handleReaderAction(action) {
   updateReaderScale();
 }
 
-const homeSectionIds = ['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'];
+const homeSectionIds = ['home-introduction', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'];
 function setHomeSection(sectionId = 'home-introduction') {
   const chosen = homeSectionIds.includes(sectionId) ? sectionId : 'home-introduction';
   document.querySelectorAll('[data-home-panel]').forEach((panel) => {
@@ -2036,7 +2162,7 @@ function setHomeSection(sectionId = 'home-introduction') {
 
 function getPageFromHash() {
   const hash = window.location.hash.replace('#', '').trim();
-  if (['home-introduction', 'home-search', 'finish-notes', 'reading-queue', 'topic-summary'].includes(hash)) return 'home';
+  if (['home-introduction', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'].includes(hash)) return 'home';
   return hash || 'home';
 }
 
@@ -2276,6 +2402,20 @@ renderSearchResults();
 
 const topicSummaryNotes = [
   {
+    title: 'Multi-omics Integration',
+    desc: 'A synthesis note for GLUE, MultiVI, totalVI, Seurat bridge integration, benchmarking papers, and missing-modality settings.',
+    meta: 'Computational Biology · Multi-omics',
+    href: 'notes_V1/Summary/MultiOmicsIntegration.html',
+    tone: 'bio'
+  },
+  {
+    title: 'RNA Velocity & Cell Dynamics',
+    desc: 'A synthesis note for scVelo, UniTVelo, MultiVelo, CellRank, RegVelo, MultiVeloVAE, STORIES, and neural differential equation models.',
+    meta: 'Computational Biology · Dynamics',
+    href: 'notes_V1/Summary/RNAVelocityDynamics.html',
+    tone: 'bio'
+  },
+  {
     title: 'Pathology Foundation Models',
     desc: 'A synthesis note for UNI, Prov-GigaPath, Virchow, CHIEF, TITAN, and other WSI representation models.',
     meta: 'Computational Pathology · Foundation Models',
@@ -2364,18 +2504,48 @@ const finishedNotes = [
 const recentAcceptedPapers = [
   {
     venue: 'Nature Methods 2026',
-    title: 'Systematically Decoding Pathological Morphologies and Molecular Profiles with Unified Multimodal Embedding',
-    tags: ['Multi-Embed', 'Pathology Omics', 'Accepted'],
-    url: 'https://www.nature.com/articles/s41592-026-03070-5',
-    noteFile: 'notes/MultiEmbed.pdf',
-    topicTitle: 'Pathology and Omics',
-    family: 'Pathology Omics',
-    tone: 'bridge'
+    title: 'stVCR: Spatiotemporal Dynamics of Single Cells',
+    tags: ['stVCR', 'Spatial Dynamics', 'New'],
+    url: 'https://www.nature.com/articles/s41592-026-03010-3',
+    noteFile: 'notes_V1/ComputationalBiology/stVCR.html',
+    topicTitle: 'RNA Velocity & Cell Dynamics',
+    family: 'Computational Biology',
+    tone: 'bio'
+  },
+  {
+    venue: 'Nature Machine Intelligence 2025',
+    title: 'Learning Cell Dynamics with Neural Differential Equations',
+    tags: ['scDiffEq', 'Neural SDE', 'New'],
+    url: 'https://www.nature.com/articles/s42256-025-01150-3',
+    noteFile: 'notes_V1/ComputationalBiology/scDiffEq.html',
+    topicTitle: 'RNA Velocity & Cell Dynamics',
+    family: 'Computational Biology',
+    tone: 'bio'
   },
   {
     venue: 'Nature Methods 2025',
-    title: 'A Visual Omics Foundation Model to Bridge Histopathology with Spatial Transcriptomics',
-    tags: ['OmiCLIP', 'Visual Omics', 'Accepted'],
+    title: 'STORIES: Learning Cell Fate Landscapes from Spatial Transcriptomics Using Optimal Transport',
+    tags: ['STORIES', 'Optimal Transport', 'New'],
+    url: 'https://www.nature.com/articles/s41592-025-02855-4',
+    noteFile: 'notes_V1/ComputationalBiology/STORIES.html',
+    topicTitle: 'RNA Velocity & Cell Dynamics',
+    family: 'Computational Biology',
+    tone: 'bio'
+  },
+  {
+    venue: 'Nature Methods 2025',
+    title: 'Multitask Benchmarking of Single-cell Multimodal Omics Integration Methods',
+    tags: ['scMultiBench', 'Multi-omics', 'New'],
+    url: 'https://www.nature.com/articles/s41592-025-02856-3',
+    noteFile: 'notes_V1/ComputationalBiology/scMultiBench.html',
+    topicTitle: 'Multi-omics Integration',
+    family: 'Computational Biology',
+    tone: 'bio'
+  },
+  {
+    venue: 'Nature Methods 2025',
+    title: 'A Visual-omics Foundation Model to Bridge Histopathology with Spatial Transcriptomics',
+    tags: ['OmiCLIP', 'Visual Omics', 'New'],
     url: 'https://www.nature.com/articles/s41592-025-02707-1',
     noteFile: 'notes/OmiCLIP.pdf',
     topicTitle: 'Histology Spatial Omics',
@@ -2384,13 +2554,13 @@ const recentAcceptedPapers = [
   },
   {
     venue: 'Nature Communications 2025',
-    title: 'Inferring Differential Dynamics from Multi Lineage Multiomic and Multi Sample Single Cell Data with MultiVeloVAE',
-    tags: ['MultiVeloVAE', 'Velocity', 'Accepted'],
-    url: 'https://www.nature.com/articles/s41467-025-66287-6',
-    noteFile: 'notes_V1/ComputationalBiology/MultiVeloVAE.html',
-    topicTitle: 'RNA Velocity & Cell Dynamics',
-    family: 'Computational Biology',
-    tone: 'bio'
+    title: 'A Multimodal Knowledge-enhanced Whole-slide Pathology Foundation Model',
+    tags: ['mSTAR', 'Pathology Foundation', 'New'],
+    url: 'https://www.nature.com/articles/s41467-025-66220-x',
+    noteFile: 'notes_V1/ComputationalPathology/mSTAR.html',
+    topicTitle: 'Pathology Foundation Models',
+    family: 'Computational Pathology',
+    tone: 'path'
   }
 ];
 

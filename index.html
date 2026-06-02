@@ -76,7 +76,7 @@
             <div class="nav-links nav-home-sections">
               <a href="#home-introduction" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.1</span><span class="nav-text">Introduction</span></a>
               <a href="#home-search" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.2</span><span class="nav-text">Paper Search</span></a>
-              <a href="#recent-accepted" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.3</span><span class="nav-text">Recent Accepted Papers</span></a>
+              <a href="#recent-accepted" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.3</span><span class="nav-text">New Papers</span></a>
               <a href="#finish-notes" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.4</span><span class="nav-text">Finish Notes</span></a>
               <a href="#reading-queue" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.5</span><span class="nav-text">Reading Queue</span></a>
               <a href="#topic-summary" class="nav-link nav-item home-anchor-link"><span class="nav-icon doc-icon" aria-hidden="true"></span><span class="nav-number">0.6</span><span class="nav-text">Topic Slides</span></a>
@@ -171,7 +171,7 @@
         <section class="page is-active" id="page-home" data-page-title="Home">
           <div class="page-stack home-stack">
             <header class="hero-card refined-hero home-introduction" id="home-introduction" data-home-panel="home-introduction">
-              <div class="intro-layout">
+              <div class="intro-layout intro-layout-clean">
                 <div class="intro-main">
                   <div class="intro-badge-row" aria-label="Notebook labels">
                     <span class="intro-badge">Website · Online</span>
@@ -181,68 +181,62 @@
                   </div>
                   <h2 class="hero-title">PathOmics Literature Notes</h2>
                   <p class="hero-text intro-lead">
-                    Structured paper summaries, key figures, method insights, and topic-level notes around AI-driven biomedical research, with a focus on computational biology, computational pathology, pathology-omics integration, cancer biology, and precision medicine.
+                    A curated reading map for papers at the intersection of single-cell omics, computational pathology, spatial molecular profiling, and AI-driven cancer research.
                   </p>
                   <div class="intro-actions">
-                    <a class="hero-button home-anchor-link" href="#finish-notes">View finished notes</a>
-                    <a class="hero-button ghost home-anchor-link" href="#topic-summary">Browse topic slides</a>
-                    <a class="hero-button ghost" href="https://zhangye-zoe.com/notes/" target="_blank" rel="noopener">Website</a>
+                    <a class="hero-button home-anchor-link" href="#finish-notes">Finished notes</a>
+                    <a class="hero-button ghost home-anchor-link" href="#topic-summary">Topic slides</a>
+                    <a class="hero-button ghost home-anchor-link" href="#recent-accepted">New papers</a>
                   </div>
                 </div>
 
-                <aside class="intro-card intro-card-profile" aria-label="Notebook summary">
-                  <div class="intro-card-kicker">Reading focus</div>
-                  <h3>Biology, Pathology, and Omics AI</h3>
-                  <p>A long-term reading map for connecting single-cell omics, tissue morphology, spatial molecular profiling, and clinically meaningful cancer questions.</p>
-                  <div class="intro-mini-grid">
-                    <span><strong>3</strong><em>Main areas</em></span>
-                    <span><strong>12+</strong><em>Bio topics</em></span>
-                    <span><strong>PDF</strong><em>Notes</em></span>
-                    <span><strong>AI</strong><em>Research</em></span>
+                <aside class="intro-card intro-card-profile intro-card-clean" aria-label="Notebook summary">
+                  <div class="intro-card-kicker">Research map</div>
+                  <h3>Biology · Pathology · Omics AI</h3>
+                  <p>Organized around method families, representative papers, and reusable notes for long-term research planning.</p>
+                  <div class="intro-mini-list">
+                    <span><strong>01</strong> Single-cell multi-omics and dynamics</span>
+                    <span><strong>02</strong> Computational pathology and WSI models</span>
+                    <span><strong>03</strong> Histology-spatial omics and cancer biomarkers</span>
                   </div>
                 </aside>
               </div>
 
-              <div class="intro-highlight-grid" aria-label="Highlights">
+              <div class="intro-highlight-grid intro-highlight-grid-clean" aria-label="Highlights">
                 <article class="intro-highlight intro-bio">
                   <div class="intro-highlight-icon">🧬</div>
                   <h3>Computational Biology</h3>
-                  <p>Multi-omics integration, RNA velocity and cell dynamics, cell foundation models, single-cell agents, regulatory networks, causal inference, perturbation prediction, spatial omics, 3D cell atlases, and representation learning.</p>
+                  <p>Multi-omics integration, RNA velocity, cell dynamics, cell foundation models, perturbation biology, spatial omics, and regulatory inference.</p>
                 </article>
                 <article class="intro-highlight intro-path">
                   <div class="intro-highlight-icon">🔬</div>
                   <h3>Computational Pathology</h3>
-                  <p>WSI analysis, nuclei segmentation, pathology foundation models, pathology language models, report generation, clinical prediction, and reliable pathology AI.</p>
+                  <p>Whole-slide representation learning, segmentation, pathology language models, clinical prediction, biomarkers, and reliable pathology AI.</p>
                 </article>
                 <article class="intro-highlight intro-omics">
                   <div class="intro-highlight-icon">🧫</div>
-                  <h3>Pathology and Omics</h3>
-                  <p>Histology-spatial omics integration, molecular prediction from pathology images, visual-omics models, biomarkers, therapy response, and spatial oncology.</p>
-                </article>
-                <article class="intro-highlight intro-map">
-                  <div class="intro-highlight-icon">📝</div>
-                  <h3>Topic Slides</h3>
-                  <p>Slide-style synthesis notes for related papers, methods, datasets, and research questions.</p>
+                  <h3>Pathology Omics</h3>
+                  <p>Histology-spatial omics integration, visual-omics models, molecular prediction, therapy response, and spatial oncology.</p>
                 </article>
               </div>
 
-              <div class="intro-topic-board" aria-label="Main topics">
+              <div class="intro-topic-board intro-topic-board-clean" aria-label="Main topics">
                 <section>
                   <h3>Computational Biology</h3>
                   <div class="intro-topic-tags">
-                    <span>Multi-omics Integration</span><span>RNA Velocity &amp; Cell Dynamics</span><span>Cell Foundation Models</span><span>Single-cell Agents</span><span>Gene Regulatory Networks</span><span>Causal Inference</span><span>Perturbation Prediction</span><span>Spatial Omics</span><span>3D Cell Atlases</span><span>Representation Learning</span><span>Pathology and Omics</span><span>Others</span>
+                    <span>Multi-omics Integration</span><span>RNA Velocity &amp; Dynamics</span><span>Cell Foundation Models</span><span>Perturbation Prediction</span><span>Spatial Omics</span><span>Regulatory Networks</span><span>Causal Inference</span>
                   </div>
                 </section>
                 <section>
                   <h3>Computational Pathology</h3>
                   <div class="intro-topic-tags">
-                    <span>Pathology Foundation Models</span><span>Pathology Language Models</span><span>Pathology Agents</span><span>Pathology Segmentation</span><span>Clinical Prediction</span><span>Reliable Pathology AI</span>
+                    <span>Foundation Models</span><span>Language Models</span><span>Segmentation</span><span>Clinical Prediction</span><span>Reliable Pathology AI</span>
                   </div>
                 </section>
                 <section>
                   <h3>Pathology Omics</h3>
                   <div class="intro-topic-tags">
-                    <span>Histology-Spatial Omics</span><span>Visual-Omics Models</span><span>Molecular Prediction</span><span>Biomarkers</span><span>Therapy Response</span><span>Spatial Oncology</span>
+                    <span>Histology-Spatial Omics</span><span>Visual-Omics Models</span><span>Molecular Prediction</span><span>Biomarkers</span><span>Therapy Response</span>
                   </div>
                 </section>
               </div>
@@ -273,8 +267,8 @@
             <section class="panel-card accepted-panel" id="recent-accepted" data-home-panel="recent-accepted">
               <div class="section-head clean-head">
                 <div>
-                  <div class="home-section-title-row"><span class="home-section-badge">0.3</span><h3 class="section-title">Recent Accepted Papers</h3></div>
-                  <p class="section-subtitle-lite">Recently accepted or published papers worth tracking for this reading map.</p>
+                  <div class="home-section-title-row"><span class="home-section-badge">0.3</span><h3 class="section-title">New Papers</h3></div>
+                  <p class="section-subtitle-lite">Fresh high-value papers to track across computational biology, pathology, and omics AI.</p>
                 </div>
               </div>
               <div class="home-paper-list accepted-list" id="recentAcceptedPapers"></div>

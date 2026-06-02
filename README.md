@@ -5,8 +5,8 @@
     <img src="https://img.shields.io/badge/Website-Online-4A90E2?style=flat-square&logo=googlechrome&logoColor=white" alt="Website">
   </a>
   <img src="https://img.shields.io/badge/Notes-Literature-7E57C2?style=flat-square&logo=bookstack&logoColor=white" alt="Literature Notes">
-  <img src="https://img.shields.io/badge/Computational%20Biology-%20Omics-26A69A?style=flat-square&logo=readthedocs&logoColor=white" alt="Computational Biology">
-  <img src="https://img.shields.io/badge/Computational%20Pathology-%20Cancer-F4A261?style=flat-square&logo=readthedocs&logoColor=white"  alt="Computational Pathology">
+  <img src="https://img.shields.io/badge/Computational%20Biology-%20Omics-4D6EB8?style=flat-square&logo=readthedocs&logoColor=white" alt="Computational Biology">
+  <img src="https://img.shields.io/badge/Computational%20Pathology-%20Cancer-B7765E?style=flat-square&logo=readthedocs&logoColor=white"  alt="Computational Pathology">
 </p>
 
 **PathOmics Notes** collects structured paper summaries, key figures, method insights, and topic-level notes around AI-driven biomedical research, with a focus on **computational biology**, **computational pathology**, **pathology-omics integration**, **cancer biology**, and **precision medicine**.
@@ -30,7 +30,7 @@
 | 🧬 **Computational Biology** | Multi-omics integration, RNA velocity and cell dynamics, cell foundation models, single-cell agents, regulatory networks, causal inference, perturbation prediction, spatial omics, 3D cell atlases, and representation learning. |
 | 🔬 **Computational Pathology** | WSI analysis, nuclei segmentation, pathology foundation models, pathology language models, report generation, clinical prediction, and reliable pathology AI. |
 | 🧫 **Pathology and Omics** | Histology-spatial omics integration, molecular prediction from pathology images, visual-omics models, biomarkers, therapy response, and spatial oncology. |
-| 📝 **Topic Slides** | Synthesis-style notes connecting related papers, methods, datasets, and research questions. |
+| 📝 **Topic Slides** | Synthesis-style notes connecting related papers, methods, datasets, and research questions, now including multi-omics integration and RNA velocity/dynamics summaries. |
 
 ---
 
