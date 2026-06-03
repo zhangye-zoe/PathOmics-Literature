@@ -72,6 +72,17 @@ const CELLRANK2_PAPER = paper('Nature Methods 2024', 'CellRank 2: Unified Fate M
 });
 
 
+const REGVELO_PAPER = paper('Cell 2026', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'RNA Velocity', 'Gene Regulation'], 'A gene-regulatory-informed generative framework that jointly models splicing kinetics, GRN structure, cell-state dynamics, fate prediction, and in silico regulatory perturbation.', 'https://doi.org/10.1016/j.cell.2026.04.022', {
+  question: 'Can gene regulatory information improve the inference of single-cell dynamics and cell fate decisions?',
+  method: 'Couples RNA velocity-style splicing dynamics with a GRN-informed neural network to model transcription as a regulated and time-dependent process.',
+  value: 'Important for connecting RNA velocity, regulatory networks, CellRank-based fate mapping, and perturbation-guided discovery of lineage regulators.',
+  caution: 'The inferred dynamics depend on the quality of GRN priors, kinetic assumptions, and biological validation of predicted perturbation effects.',
+  noteFile: 'notes/RegVelo.pdf',
+  completed: true,
+  completedDate: '2026-06-03',
+  completedLabel: 'PDF note'
+});
+
 const topics = {
   'cbio-overview': {
     family: 'Computational Biology',
@@ -1371,12 +1382,7 @@ Object.assign(topics, {
         value: 'Strong reference for moving beyond global kinetic assumptions.',
         caution: 'Model flexibility should be balanced against overfitting and interpretability.'
       }),
-      paper('Cell 2026', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'Gene Regulation', 'Velocity'], 'A gene-regulatory-informed model linking splicing dynamics with regulatory circuitry for interpretable cell-state dynamics.', 'https://www.cell.com/cell/fulltext/S0092-8674(26)00457-5', {
-        question: 'Can gene regulatory structure make single-cell dynamics more mechanistically interpretable?',
-        method: 'Couples RNA velocity-style dynamics with gene regulatory information and in silico perturbation analysis.',
-        value: 'Highly relevant for connecting dynamic inference with regulatory mechanism.',
-        caution: 'Regulatory priors can help interpretation but may constrain discovery when priors are incomplete.'
-      }),
+      REGVELO_PAPER,
       CELLRANK2_PAPER,
       paper('Nature Communications 2025', 'TIVelo: RNA Velocity Estimation Leveraging Cluster-level Trajectory Inference', ['TIVelo', 'Trajectory Inference', 'RNA Velocity'], 'A velocity method that first determines direction at the cell-cluster level and then estimates cell-level velocity.', 'https://www.nature.com/articles/s41467-025-61628-x', {
         question: 'Can cluster-level trajectory information stabilize RNA velocity direction?',
@@ -1498,12 +1504,7 @@ Object.assign(topics, {
         value: 'Connects foundation models with regulatory hypotheses.',
         caution: 'Predicted regulators require experimental validation.'
       }),
-      paper('Nature Methods 2024', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'GRN', 'Dynamics'], 'Uses gene regulatory information to make dynamic inference more mechanistic.', 'https://www.nature.com/articles/s41592-024-02429-w', {
-        question: 'Can regulatory priors improve dynamic inference?',
-        method: 'Combines regulatory structure with single-cell dynamics.',
-        value: 'Good bridge between regulatory networks and trajectory modeling.',
-        caution: 'The usefulness of priors depends on regulatory network quality.'
-      })
+      REGVELO_PAPER,
     ]
   },
   'cbio-causal': {
@@ -2508,6 +2509,15 @@ function renderTopicSummaryNotes() {
 
 
 const finishedNotes = [
+  {
+    date: '2026-06-03',
+    title: 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells',
+    venue: 'Cell 2026',
+    desc: 'Gene-regulatory-informed single-cell dynamics with RNA velocity, GRN inference, CellRank fate prediction, and in silico perturbation.',
+    href: 'notes/RegVelo.pdf',
+    tags: ['RegVelo', 'RNA Velocity', 'Gene Regulation'],
+    tone: 'bio'
+  },
   {
     date: '2026-06-03',
     title: 'CellRank for Directed Single-cell Fate Mapping',

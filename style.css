@@ -5886,8 +5886,8 @@ html[data-theme="dark"] #page-home .home-minimal-actions .neo-ghost {
 }
 
 .finish-item {
-  grid-template-columns: 118px minmax(0, 1fr) 16px auto !important;
-  gap: 12px !important;
+  grid-template-columns: 88px minmax(0, 1fr) 16px auto !important;
+  gap: 10px !important;
   align-items: center !important;
   padding: 11px 16px !important;
   min-height: 82px !important;
@@ -6006,7 +6006,7 @@ html[data-theme="dark"] .finish-dot {
 }
 
 .finish-item {
-  grid-template-columns: 118px minmax(0, 1fr) 14px 42px !important;
+  grid-template-columns: 85px minmax(0, 1fr) 14px 42px !important;
   gap: 10px !important;
   align-items: center !important;
   min-height: 64px !important;
