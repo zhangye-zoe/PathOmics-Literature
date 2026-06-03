@@ -753,17 +753,36 @@ const topics = {
     family: 'Computational Pathology',
     tone: 'path',
     title: 'Nuclei Segmentation',
-    subtitle: 'Nuclei instance segmentation, cell classification, morphology quantification, and tissue microenvironment analysis.',
+    subtitle: 'Generalist cell and nuclei segmentation, human-in-the-loop customization, image restoration, and SAM-based generalization across microscopy and pathology images.',
     rows: [
-      ['Cell instances', 'Separate nuclei and infer cell-level morphology.', null],
-      ['TME quantification', 'Use cell maps to measure immune, stromal, and tumor ecosystems.', null]
+      ['Generalist segmentation', 'Segment cells and nuclei across diverse microscopy, histology, and fluorescence image types with limited task-specific engineering.', null],
+      ['Customization', 'Adapt pretrained models with small amounts of user annotation and human-in-the-loop training.', null],
+      ['Robustness', 'Handle degraded, noisy, blurred, low-resolution, and out-of-distribution biological images.', null]
     ],
     papers: [
-      paper('Nature Medicine 2024', 'A Visual Language Foundation Model for Computational Pathology', ['Evidence', 'Localization', 'Cells'], 'A language-grounded reference for connecting visual concepts with local tissue evidence.', 'https://www.nature.com/articles/s41591-024-02856-4', {
-        question: 'How can pathology concepts be grounded in image regions?',
-        method: 'Uses image text alignment for pathology visual concepts.',
-        value: 'Relevant for segmentation and region-level evidence.',
-        caution: 'Localization needs dedicated validation.'
+      paper('Nature Methods 2021', 'Cellpose: A Generalist Algorithm for Cellular Segmentation', ['Cellpose', 'Generalist Segmentation', 'Cells and Nuclei'], 'The original Cellpose paper introducing a generalist deep learning algorithm for cell and nuclei segmentation across diverse microscopy image types.', 'https://www.nature.com/articles/s41592-020-01018-x', {
+        question: 'Can one segmentation model work across many cell and nuclei image types without retraining?',
+        method: 'Predicts spatial flows that guide pixels toward object centers, enabling instance segmentation for cells and nuclei.',
+        value: 'The foundational paper of the Cellpose family and a must-read baseline for generalist biological image segmentation.',
+        caution: 'Out-of-the-box generalization is strong, but domain-specific pathology nuclei may still require validation or fine-tuning.'
+      }),
+      paper('Nature Methods 2022', 'Cellpose 2.0: How to Train Your Own Model', ['Cellpose 2.0', 'Human-in-the-loop', 'Custom Models'], 'Extends Cellpose with diverse pretrained models and a human-in-the-loop workflow for rapidly training custom segmentation models.', 'https://www.nature.com/articles/s41592-022-01663-4', {
+        question: 'How can users adapt a generalist segmentation model to their own annotation style and image domain?',
+        method: 'Provides a GUI-driven annotation and retraining workflow with model zoo support for custom Cellpose models.',
+        value: 'Important for practical biological image analysis where annotation style, tissue type, and image modality vary.',
+        caution: 'Custom training quality depends on representative user annotations and careful inspection of failure cases.'
+      }),
+      paper('Nature Methods 2025', 'Cellpose3: One-click Image Restoration for Improved Cellular Segmentation', ['Cellpose3', 'Image Restoration', 'Robust Segmentation'], 'Introduces restoration models for denoising, deblurring, and upsampling biological images to improve downstream Cellpose segmentation.', 'https://www.nature.com/articles/s41592-025-02595-5', {
+        question: 'Can image restoration be optimized directly for better segmentation rather than only prettier images?',
+        method: 'Trains restoration models that preserve perceptual similarity while producing images that are easier for Cellpose-style models to segment.',
+        value: 'Useful for noisy, blurry, low-resolution, and anisotropic microscopy or nuclei images.',
+        caution: 'Restored images should be treated as preprocessing outputs and checked against biological morphology.'
+      }),
+      paper('bioRxiv 2025', 'Cellpose-SAM: Superhuman Generalization for Cellular Segmentation', ['Cellpose-SAM', 'Cellpose4', 'SAM Encoder'], 'The latest Cellpose generation, also referred to in the software ecosystem as Cellpose-SAM/Cellpose4, combines the Cellpose framework with a SAM-based encoder for stronger generalization.', 'https://www.biorxiv.org/content/10.1101/2025.04.28.651001v1', {
+        question: 'Can a SAM-based encoder improve generalist biological segmentation across object types, image degradations, and 3D settings?',
+        method: 'Uses a high-capacity SAM-based encoder within the Cellpose ecosystem for cell and nuclei segmentation.',
+        value: 'Represents the newest Cellpose direction and should be tracked as the current frontier of the Cellpose series.',
+        caution: 'As of this update, the paper is a bioRxiv preprint, so final peer-reviewed claims and benchmarks should be checked later.'
       })
     ]
   },
