@@ -2283,21 +2283,73 @@ const filterRow = document.getElementById('filterRow');
 const searchInput = document.getElementById('globalSearch');
 const searchResults = document.getElementById('searchResults');
 const searchSuggestions = document.getElementById('searchSuggestions');
+
+const suggestedSearchGroups = [
+  {
+    key: 'bio',
+    label: 'Computational Biology',
+    items: [
+      'Multi-omics Integration',
+      'RNA Velocity & Cell Dynamics',
+      'Cell Foundation Models',
+      'Single-cell Agents',
+      'Gene Regulatory Networks',
+      'Causal Inference',
+      'Perturbation Prediction',
+      'Spatial Omics',
+      '3D Cell Atlases',
+      'Representation Learning',
+      'GraphVelo',
+      'MultiVeloVAE',
+      'RegVelo',
+      'Geneformer'
+    ]
+  },
+  {
+    key: 'path',
+    label: 'Computational Pathology',
+    items: [
+      'Pathology Foundation Models',
+      'Pathology Language Models',
+      'Pathology Agents',
+      'Pathology Segmentation',
+      'Nuclei Segmentation',
+      'Cancer Diagnosis',
+      'Patient Prognosis',
+      'Stain Transfer',
+      'WSI Retrieval',
+      'Pathology Biomarkers',
+      'Report Generation',
+      'CONCH',
+      'TITAN'
+    ]
+  },
+  {
+    key: 'bridge',
+    label: 'Pathology Omics',
+    items: [
+      'Histology Spatial Omics',
+      'Visual Omics Models',
+      'Molecular Prediction',
+      'Biomarkers',
+      'Therapy Response',
+      'Spatial Oncology',
+      'Liquid Biopsies',
+      'OmiCLIP',
+      'STORM',
+      'Multi-Embed',
+      'PORPOISE'
+    ]
+  }
+];
+
 const suggestedSearches = [
   ...new Set([
-    ...topicKeys.map((key) => topics[key].title),
-    'PORPOISE',
-    'OmiCLIP',
-    'CONCH',
-    'TITAN',
-    'GraphVelo',
-    'MultiVeloVAE',
-    'RegVelo',
-    'Geneformer',
-    'STORM',
-    'Multi-Embed'
+    ...suggestedSearchGroups.flatMap((group) => group.items),
+    ...topicKeys.map((key) => topics[key].title)
   ])
 ];
+
 let activeFamily = 'All';
 
 
@@ -2305,8 +2357,11 @@ function renderSearchSuggestions() {
   if (!searchSuggestions) return;
   searchSuggestions.innerHTML = `
     <div class="suggestion-head">Suggested starting points</div>
+    <div class="suggestion-legend" aria-label="Suggestion color legend">
+      ${suggestedSearchGroups.map((group) => `<span class="suggestion-legend-item legend-${group.key}"><i></i>${escapeHTML(group.label)}</span>`).join('')}
+    </div>
     <div class="suggestion-pills">
-      ${suggestedSearches.map((item, index) => `<button type="button" class="suggestion-chip chip-${(index % 12) + 1}" data-suggest="${escapeHTML(item)}">${escapeHTML(item)}</button>`).join('')}
+      ${suggestedSearchGroups.map((group) => group.items.map((item) => `<button type="button" class="suggestion-chip suggestion-${group.key}" data-suggest="${escapeHTML(item)}">${escapeHTML(item)}</button>`).join('')).join('')}
     </div>
   `;
 }
@@ -2616,18 +2671,17 @@ const readingQueuePapers = [
 ];
 
 function renderQueueItem(item, index) {
-  const tags = item.tags.slice(0, 3).map((tag) => `<span class="queue-tag">${escapeHTML(tag)}</span>`).join('');
+  const modelName = (item.tags && item.tags.length) ? item.tags[0] : '';
+  const inlineMeta = [modelName, item.venue].filter(Boolean).join(' · ');
   return `
-    <article class="queue-card family-${item.tone}">
+    <article class="queue-card compact-home-paper family-${item.tone}">
       <div class="queue-index">${String(index + 1).padStart(2, '0')}</div>
       <div class="queue-main">
-        <div class="queue-meta"><span>${escapeHTML(item.venue)}</span>${tags}</div>
         <h3>${escapeHTML(item.title)}</h3>
-        <p>${escapeHTML(item.titlePrefix || 'Queued for later reading')} · ${escapeHTML(item.topicTitle)}</p>
+        ${inlineMeta ? `<div class="queue-meta-line">${escapeHTML(inlineMeta)}</div>` : ''}
       </div>
       <div class="queue-actions">
         <a class="paper-open paper-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Paper</a>
-        <a class="paper-open note-link" href="${buildNoteHref(item.noteFile)}"${buildNoteAttrs(item.noteFile)}>Note</a>
       </div>
     </article>
   `;
