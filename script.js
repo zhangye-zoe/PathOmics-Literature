@@ -49,6 +49,39 @@ const MULTIEMBED_PAPER = paper('Nature Methods 2026', 'Systematically Decoding P
   completedLabel: 'PDF note'
 });
 
+const CELLRANK_PAPER = paper('Nature Methods 2022', 'CellRank for Directed Single-cell Fate Mapping', ['CellRank', 'Fate Mapping', 'Markov Model'], 'A directed single-cell fate-mapping framework that combines RNA velocity-informed transition kernels with Markov state modeling to identify terminal states and compute fate probabilities.', 'https://www.nature.com/articles/s41592-021-01346-6', {
+  question: 'How can transition directions be converted into terminal states and probabilistic cell-fate decisions?',
+  method: 'Builds transition kernels on a cell-cell graph and uses Markov modeling to estimate terminal states and fate probabilities.',
+  value: 'A core paper for moving from RNA velocity vectors to interpretable fate mapping.',
+  caution: 'Terminal-state identification, root-state choice, and kernel design require biological checking.',
+  noteFile: 'notes/CellRank.pdf',
+  completed: true,
+  completedDate: '2026-06-03',
+  completedLabel: 'PDF note'
+});
+
+const CELLRANK2_PAPER = paper('Nature Methods 2024', 'CellRank 2: Unified Fate Mapping in Multiview Single-cell Data', ['CellRank 2', 'Fate Mapping', 'Multiview'], 'A unified and scalable fate-mapping framework that integrates multiple directional views such as pseudotime, RNA velocity, experimental time and metabolic labeling.', 'https://www.nature.com/articles/s41592-024-02303-9', {
+  question: 'How can fate mapping combine multiple directional signals instead of relying on RNA velocity alone?',
+  method: 'Combines multiple kernels in a unified Markov-state modeling framework to infer terminal states and fate probabilities.',
+  value: 'Important for understanding modern multiview cell-state dynamics and fate prediction.',
+  caution: 'The chosen view or kernel can strongly shape inferred fate probabilities and should be validated biologically.',
+  noteFile: 'notes/CellRank2.pdf',
+  completed: true,
+  completedDate: '2026-06-03',
+  completedLabel: 'PDF note'
+});
+
+const RegVelo_PAPER = paper('Nature 2024', 'RegVelo: Gene-Regulatory-Informed Dynamics of Single Cells', ['RegVelo', 'RNA Velocity', 'Gene Regulation'], 'A gene-regulatory-informed model for learning single-cell dynamics and recovering lineage-specific regulatory programs.', 'https://www.nature.com/articles/xxxx', {
+  question: 'Can gene regulatory priors improve the inference of single-cell state transitions?',
+  method: 'Combines RNA velocity-style dynamic modeling with gene regulatory network information.',
+  value: 'Useful for connecting cell-state dynamics with mechanistic regulatory interpretation.',
+  caution: 'The inferred dynamics depend on regulatory prior quality and should be validated with perturbation evidence.',
+  noteFile: 'notes/RegVelo.pdf',
+  completed: true,
+  completedDate: '2026-06-03',
+  completedLabel: 'PDF note'
+})
+
 
 const topics = {
   'cbio-overview': {
@@ -1318,12 +1351,7 @@ Object.assign(topics, {
         value: 'Classic non-Nature method worth keeping because it is closely related to MultiVeloVAE and dynamic state prediction.',
         caution: 'ODE assumptions and branching design should be compared with more recent multiomic models.'
       }),
-      paper('Nature Methods 2022', 'CellRank for Directed Single-cell Fate Mapping', ['CellRank', 'Fate Mapping', 'Markov Model'], 'A directed fate-mapping framework that combines transition information with Markov state modeling.', 'https://www.nature.com/articles/s41592-021-01346-6', {
-        question: 'How can transition directions be converted into terminal states and fate probabilities?',
-        method: 'Builds transition kernels and computes fate probabilities through Markov modeling.',
-        value: 'Important bridge from velocity vectors to interpretable fate decisions.',
-        caution: 'Terminal-state identification and kernel choice require biological checking.'
-      }),
+      CELLRANK_PAPER,
       paper('arXiv 2022', 'Pyro-Velocity: Probabilistic RNA Velocity Inference from Single-cell Data', ['Pyro-Velocity', 'Bayesian', 'Uncertainty'], 'A Bayesian generative RNA velocity model for uncertainty-aware future-state estimation.', 'https://doi.org/10.1101/2022.09.12.507691', {
         question: 'Can RNA velocity quantify uncertainty in cell future states?',
         method: 'Uses probabilistic generative modeling to estimate RNA velocity and future-state uncertainty.',
@@ -1354,18 +1382,8 @@ Object.assign(topics, {
         value: 'Strong reference for moving beyond global kinetic assumptions.',
         caution: 'Model flexibility should be balanced against overfitting and interpretability.'
       }),
-      paper('Cell 2026', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'Gene Regulation', 'Velocity'], 'A gene-regulatory-informed model linking splicing dynamics with regulatory circuitry for interpretable cell-state dynamics.', 'https://www.cell.com/cell/fulltext/S0092-8674(26)00457-5', {
-        question: 'Can gene regulatory structure make single-cell dynamics more mechanistically interpretable?',
-        method: 'Couples RNA velocity-style dynamics with gene regulatory information and in silico perturbation analysis.',
-        value: 'Highly relevant for connecting dynamic inference with regulatory mechanism.',
-        caution: 'Regulatory priors can help interpretation but may constrain discovery when priors are incomplete.'
-      }),
-      paper('Nature Methods 2024', 'CellRank 2: Unified Fate Mapping in Multiview Single-cell Data', ['CellRank 2', 'Fate Mapping', 'Multiview'], 'A scalable multiview framework for fate mapping across multiple single-cell modalities.', 'https://www.nature.com/articles/s41592-024-02303-9', {
-        question: 'How can fate mapping integrate pseudotime, velocity, experimental time and metabolic labeling?',
-        method: 'Combines multiple kernels in a unified Markov-state modeling framework for terminal states and fate probabilities.',
-        value: 'Important for reading CellRank-style dynamics beyond RNA velocity alone.',
-        caution: 'The chosen view or kernel can strongly shape inferred fate probabilities.'
-      }),
+      RegVelo_PAPER,
+      CELLRANK2_PAPER,
       paper('Nature Communications 2025', 'TIVelo: RNA Velocity Estimation Leveraging Cluster-level Trajectory Inference', ['TIVelo', 'Trajectory Inference', 'RNA Velocity'], 'A velocity method that first determines direction at the cell-cluster level and then estimates cell-level velocity.', 'https://www.nature.com/articles/s41467-025-61628-x', {
         question: 'Can cluster-level trajectory information stabilize RNA velocity direction?',
         method: 'Determines velocity direction at cluster level before estimating individual-cell velocities.',
@@ -1486,12 +1504,7 @@ Object.assign(topics, {
         value: 'Connects foundation models with regulatory hypotheses.',
         caution: 'Predicted regulators require experimental validation.'
       }),
-      paper('Nature Methods 2024', 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells', ['RegVelo', 'GRN', 'Dynamics'], 'Uses gene regulatory information to make dynamic inference more mechanistic.', 'https://www.nature.com/articles/s41592-024-02429-w', {
-        question: 'Can regulatory priors improve dynamic inference?',
-        method: 'Combines regulatory structure with single-cell dynamics.',
-        value: 'Good bridge between regulatory networks and trajectory modeling.',
-        caution: 'The usefulness of priors depends on regulatory network quality.'
-      })
+      RegVelo_PAPER,
     ]
   },
   'cbio-causal': {
@@ -2441,6 +2454,33 @@ function renderTopicSummaryNotes() {
 
 
 const finishedNotes = [
+  {
+    date: '2026-06-03',
+    title: 'RegVelo: Gene-regulatory-informed Dynamics of Single Cells',
+    venue: 'Cell 2026',
+    desc: 'Gene-regulatory-informed single-cell dynamics with RNA velocity, GRN inference, CellRank fate prediction, and in silico perturbation.',
+    href: 'notes/RegVelo.pdf',
+    tags: ['RegVelo', 'RNA Velocity', 'Gene Regulation'],
+    tone: 'bio'
+  },
+  {
+    date: '2026-06-03',
+    title: 'CellRank 2: Unified Fate Mapping in Multiview Single-cell Data',
+    venue: 'Nature Methods 2024',
+    desc: 'Multiview fate mapping with velocity, pseudotime, experimental time and metabolic labeling.',
+    href: 'notes/CellRank2.pdf',
+    tags: ['CellRank 2', 'Multiview', 'Cell Dynamics'],
+    tone: 'bio'
+  },
+  {
+    date: '2026-06-03',
+    title: 'CellRank for Directed Single-cell Fate Mapping',
+    venue: 'Nature Methods 2022',
+    desc: 'Directed Markov modeling for terminal states and probabilistic cell-fate decisions.',
+    href: 'notes/CellRank.pdf',
+    tags: ['CellRank', 'Fate Mapping', 'RNA Velocity'],
+    tone: 'bio'
+  },
   {
     date: '2026-05-19',
     title: 'A Visual Omics Foundation Model to Bridge Histopathology with Spatial Transcriptomics',
