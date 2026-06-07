@@ -2173,6 +2173,12 @@ function handleReaderAction(action) {
 }
 
 const homePages = ['home', 'home-search', 'recent-accepted', 'finish-notes', 'reading-queue', 'topic-summary'];
+const pageToneClasses = ['tone-home', 'tone-bio', 'tone-path', 'tone-bridge'];
+
+function setPageTone(tone = 'home') {
+  document.body.classList.remove(...pageToneClasses);
+  document.body.classList.add(`tone-${tone}`);
+}
 
 function buildShareFromHomePage(pageKey) {
   const page = document.getElementById(`page-${pageKey}`);
@@ -2209,6 +2215,7 @@ function activatePage(pageKey, options = {}) {
       url: `${window.location.href.split('#')[0]}#reader/${pdfUrl}`,
       tone: 'home'
     };
+    setPageTone('home');
     updateSharePreview();
     if (updateHash) window.location.hash = pageKey;
     window.scrollTo({ top: 0, behavior: smoothScroll ? 'smooth' : 'auto' });
@@ -2223,6 +2230,7 @@ function activatePage(pageKey, options = {}) {
     document.querySelectorAll('[data-page]').forEach((item) => item.classList.remove('active'));
     document.getElementById('page-note')?.classList.add('is-active');
     document.querySelectorAll(`[data-page="${item.topicKey}"]`).forEach((nav) => nav.classList.add('active'));
+    setPageTone(item.tone || 'home');
     if (updateHash) window.location.hash = pageKey;
     window.scrollTo({ top: 0, behavior: smoothScroll ? 'smooth' : 'auto' });
     return true;
@@ -2238,6 +2246,7 @@ function activatePage(pageKey, options = {}) {
   } else {
     currentShare = buildShareFromTopic(pageKey);
   }
+  setPageTone(currentShare?.tone || topics[pageKey]?.tone || 'home');
   updateSharePreview();
   if (updateHash) window.location.hash = pageKey;
   window.scrollTo({ top: 0, behavior: smoothScroll ? 'smooth' : 'auto' });
@@ -2513,17 +2522,35 @@ const topicSummaryNotes = [
 function renderTopicSummaryNotes() {
   const wrap = document.getElementById('topicSummaryNotes');
   if (!wrap) return;
-  wrap.innerHTML = topicSummaryNotes.map((item, index) => `
-    <a class="summary-note-card family-${item.tone}" href="${item.href}" target="_blank" rel="noopener noreferrer">
-      <span class="summary-note-index">${String(index + 1).padStart(2, '0')}</span>
-      <span class="summary-note-body">
-        <strong>${escapeHTML(item.title)}</strong>
-        <em>${escapeHTML(item.meta)}</em>
-        <span>${escapeHTML(item.desc)}</span>
-      </span>
-      <span class="summary-note-arrow">↗</span>
-    </a>
-  `).join('');
+  const groups = [
+    { tone: 'bio', title: 'Computational Biology', note: 'Cells, omics, dynamics, integration' },
+    { tone: 'path', title: 'Computational Pathology', note: 'Slides, foundation models, language' },
+    { tone: 'bridge', title: 'Pathology Omics', note: 'Histology, spatial signals, molecules' }
+  ];
+  wrap.innerHTML = groups.map((group) => {
+    const items = topicSummaryNotes.filter((item) => item.tone === group.tone);
+    return `
+      <section class="topic-slide-column family-${group.tone}">
+        <div class="topic-slide-column-head">
+          <span>${escapeHTML(group.title)}</span>
+          <em>${escapeHTML(group.note)}</em>
+        </div>
+        <div class="topic-slide-column-list">
+          ${items.map((item, index) => `
+            <a class="summary-note-card family-${item.tone}" href="${item.href}" target="_blank" rel="noopener noreferrer">
+              <span class="summary-note-index">${String(index + 1).padStart(2, '0')}</span>
+              <span class="summary-note-body">
+                <strong>${escapeHTML(item.title)}</strong>
+                <em>${escapeHTML(item.meta)}</em>
+                <span>${escapeHTML(item.desc)}</span>
+              </span>
+              <span class="summary-note-arrow">↗</span>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+    `;
+  }).join('');
 }
 
 
