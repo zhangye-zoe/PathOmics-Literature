@@ -1,6 +1,4 @@
 
-const navTriggers = document.querySelectorAll('[data-page]');
-const pages = document.querySelectorAll('.page');
 const root = document.documentElement;
 
 const paper = (venue, title, tags, excerpt, url, note) => ({ venue, title, tags, excerpt, url, note });
@@ -2292,6 +2290,7 @@ document.addEventListener('click', (event) => {
     if (action === 'reset') resetNoteDraft(slug);
     if (action === 'copy') copyNoteDraft(slug);
     if (action === 'download') downloadNoteDraft(slug);
+    if (action === 'markdown') downloadNoteMarkdown(slug);
     return;
   }
   const link = event.target.closest('[data-page]');
@@ -2372,13 +2371,6 @@ const suggestedSearchGroups = [
   }
 ];
 
-const suggestedSearches = [
-  ...new Set([
-    ...suggestedSearchGroups.flatMap((group) => group.items),
-    ...topicKeys.map((key) => topics[key].title)
-  ])
-];
-
 let activeFamily = 'All';
 
 
@@ -2440,10 +2432,6 @@ function buildNoteHref(noteFile) {
 
 function buildNoteAttrs(noteFile) {
   return isPDFNote(noteFile) ? '' : ' target="_blank" rel="noopener noreferrer"';
-}
-
-function makePaperStyleId(paperItem) {
-  return paperItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
 function renderSearchItem(item) {
@@ -2783,6 +2771,25 @@ function renderHomeCollections() {
 renderHomeCollections();
 
 renderTopicSummaryNotes();
+
+function renderHomeMetrics() {
+  const metrics = document.getElementById('homeMetrics');
+  if (!metrics) return;
+  const natureCount = allPapers.filter((item) => item.venue.toLowerCase().includes('nature')).length;
+  const values = [
+    ['Papers', allPapers.length],
+    ['Nature', natureCount],
+    ['Notes', finishedNotes.length],
+    ['Queue', readingQueuePapers.length]
+  ];
+  metrics.innerHTML = values.map(([label, value]) => `
+    <span>
+      <strong>${value}</strong>
+      <em>${label}</em>
+    </span>
+  `).join('');
+}
+renderHomeMetrics();
 
 
 function renderMiniStats() {
