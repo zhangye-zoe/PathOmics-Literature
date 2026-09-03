@@ -1,3 +1,5 @@
+# 📚 PathOmics Literature Notes
+
 <p align="center">
   <a href="https://zhangye-zoe.com/notes/">
     <img src="https://img.shields.io/badge/Website-Online-4A90E2?style=flat-square&logo=googlechrome&logoColor=white" alt="Website">
@@ -8,4 +10,4 @@
 </p>
 
 **PathOmics Notes** collects structured paper summaries and topic-level notes around AI-driven biomedical research, with a focus on **computational biology**, **computational pathology**, **pathology-omics integration**.
-<a href="https://zhangye-zoe.com/notes/"><b>🌐 Visit Website</b></a>
+
