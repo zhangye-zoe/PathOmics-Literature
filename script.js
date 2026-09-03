@@ -1,4 +1,6 @@
 
+const navTriggers = document.querySelectorAll('[data-page]');
+const pages = document.querySelectorAll('.page');
 const root = document.documentElement;
 
 const paper = (venue, title, tags, excerpt, url, note) => ({ venue, title, tags, excerpt, url, note });
@@ -1343,13 +1345,19 @@ Object.assign(topics, {
     tone: 'bio',
     title: 'RNA Velocity & Cell Dynamics',
     subtitle: 'RNA velocity, multimodal velocity, latent time, trajectory inference, fate landscapes and transition modeling from static or time-resolved single-cell data.',
-    note: 'This folder merges RNA velocity, trajectory inference, fate mapping, optimal transport and neural differential equation models. The skipped screenshot item on dynamical systems modeling with spatiotemporal scRNA-seq was intentionally not added.',
+    note: 'This folder merges RNA velocity, trajectory inference, fate mapping, optimal transport and neural differential equation models.',
     rows: [
       ['Velocity', 'Infer transition direction using spliced/unspliced RNA, chromatin accessibility or multimodal kinetic assumptions.', null],
       ['Latent time', 'Order asynchronous cells along biological progression and branch structures.', null],
       ['Fate landscape', 'Model terminal states, lineage commitment and future-state prediction.', null]
     ],
     papers: [
+      paper('Nature 2018', 'RNA Velocity of Single Cells', ['velocyto', 'RNA Velocity', 'Splicing Kinetics'], 'The original RNA velocity framework that estimates the future transcriptional state of individual cells from the balance between unspliced and spliced mRNA.', 'https://www.nature.com/articles/s41586-018-0414-6', {
+        question: 'Can a static single-cell RNA-seq snapshot reveal the direction and speed of future cell-state changes?',
+        method: 'Estimates gene-wise RNA velocity from unspliced and spliced transcript abundances under a steady-state kinetic model.',
+        value: 'The foundational paper that introduced RNA velocity and established unspliced-to-spliced dynamics as a source of directional information.',
+        caution: 'The original formulation relies on steady-state and shared-kinetics assumptions that can be violated in transient or heterogeneous systems.'
+      }),
       paper('Nature Biotechnology 2020', 'Generalizing RNA Velocity to Transient Cell States through Dynamical Modeling', ['scVelo', 'RNA Velocity', 'Latent Time'], 'A foundational dynamical RNA velocity model that handles transient cell states and recovers latent time.', 'https://www.nature.com/articles/s41587-020-0591-3', {
         question: 'How can RNA velocity be extended beyond steady-state assumptions?',
         method: 'Solves full transcriptional dynamics of splicing kinetics using a likelihood-based dynamical model.',
@@ -1381,6 +1389,12 @@ Object.assign(topics, {
         value: 'Key multimodal velocity paper for ATAC-to-RNA temporal relationships.',
         caution: 'Requires assumptions about regulatory ordering and paired multiome data quality.'
       }),
+      paper('Nature Communications 2024', 'GraphVelo Allows Accurate Inference of Multimodal Velocities and Molecular Mechanisms for Single Cells', ['GraphVelo', 'Multimodal Velocity', 'Mechanism'], 'A graph-based approach for multimodal velocity and molecular mechanism inference.', 'https://www.nature.com/articles/s41467-025-62784-w', {
+        question: 'Can graph structure improve velocity estimation and molecular mechanism discovery?',
+        method: 'Uses graph-theoretical representations of velocity and dynamical systems constraints.',
+        value: 'Useful for comparing dynamic graph models with latent-time approaches.',
+        caution: 'Graph construction can strongly affect inferred direction and downstream interpretation.'
+      }),
       paper('Genome Biology 2024', 'DeepVelo: Deep Learning Extends RNA Velocity to Multi-lineage Systems with Cell-specific Kinetics', ['DeepVelo', 'Graph Neural Network', 'Cell-specific Kinetics'], 'A graph neural network approach for RNA velocity in multi-lineage systems with time-dependent kinetics.', 'https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-03148-9', {
         question: 'Can velocity be modeled with cell-specific rather than global kinetic rates?',
         method: 'Uses graph convolution networks to infer time-varying kinetic rates and dynamic driver genes.',
@@ -1399,7 +1413,12 @@ Object.assign(topics, {
         value: 'Strong reference for moving beyond global kinetic assumptions.',
         caution: 'Model flexibility should be balanced against overfitting and interpretability.'
       }),
-      REGVELO_PAPER,
+      paper('Nature Communications 2024', 'Multivariate Stochastic Modeling for Transcriptional Dynamics with Cell-specific Latent Time Using SDEvelo', ['SDEvelo', 'Stochastic Differential Equation', 'Latent Time'], 'A generative RNA velocity framework that models multigene transcriptional dynamics with stochastic differential equations and cell-specific latent time.', 'https://www.nature.com/articles/s41467-024-55146-5', {
+        question: 'Can stochastic multivariate dynamics better represent transcriptional variation than independent deterministic ODEs?',
+        method: 'Models unspliced and spliced RNA jointly with multivariate stochastic differential equations while inferring cell-specific latent time.',
+        value: 'Important for comparing deterministic ODE velocity models with explicitly stochastic dynamical formulations.',
+        caution: 'The inferred stochastic dynamics remain dependent on latent-time estimation and model specification.'
+      }),
       CELLRANK2_PAPER,
       paper('Nature Communications 2025', 'TIVelo: RNA Velocity Estimation Leveraging Cluster-level Trajectory Inference', ['TIVelo', 'Trajectory Inference', 'RNA Velocity'], 'A velocity method that first determines direction at the cell-cluster level and then estimates cell-level velocity.', 'https://www.nature.com/articles/s41467-025-61628-x', {
         question: 'Can cluster-level trajectory information stabilize RNA velocity direction?',
@@ -1407,17 +1426,17 @@ Object.assign(topics, {
         value: 'Useful for comparing local kinetic models with trajectory-guided velocity.',
         caution: 'Cluster granularity and trajectory inference quality can influence final velocity.'
       }),
+      paper('Nature Communications 2025', 'Multi-omic Relay Velocity Modeling Uncovers Dynamic Chromatin-transcription Regulation across Cell States', ['MoFlow', 'Relay Velocity', 'Multi-omics'], 'A multi-omic relay velocity framework that integrates chromatin accessibility and RNA to infer locally adaptive, cell-specific regulatory kinetics.', 'https://www.nature.com/articles/s41467-025-67259-6', {
+        question: 'Can chromatin and RNA be modeled with cell-specific relay kinetics without assigning a global latent time?',
+        method: 'Uses a deep neural network to infer cell-specific chromatin, transcription, splicing and degradation rates and aligns cells to likely future neighbors.',
+        value: 'Especially relevant for asynchronous chromatin-to-transcription regulation and local regulatory lag modeling.',
+        caution: 'Relay-neighbor selection and inferred kinetic parameters require careful biological validation.'
+      }),
       paper('Nature Methods 2025', 'STORIES: Learning Cell Fate Landscapes from Spatial Transcriptomics Using Optimal Transport', ['STORIES', 'Optimal Transport', 'Spatial Dynamics'], 'An optimal-transport method for learning spatially informed differentiation potentials and fate landscapes.', 'https://www.nature.com/articles/s41592-025-02855-4', {
         question: 'Can spatial transcriptomics time series reveal cell fate landscapes?',
         method: 'Extends optimal transport to learn a spatially informed potential over differentiation.',
         value: 'Important for connecting trajectory inference with spatial tissue context.',
         caution: 'Requires careful interpretation of spatial transport and time-point design.'
-      }),
-      paper('Nature Communications 2025', 'GraphVelo Allows Accurate Inference of Multimodal Velocities and Molecular Mechanisms for Single Cells', ['GraphVelo', 'Multimodal Velocity', 'Mechanism'], 'A graph-based approach for multimodal velocity and molecular mechanism inference.', 'https://www.nature.com/articles/s41467-025-62784-w', {
-        question: 'Can graph structure improve velocity estimation and molecular mechanism discovery?',
-        method: 'Uses graph-theoretical representations of velocity and dynamical systems constraints.',
-        value: 'Useful for comparing dynamic graph models with latent-time approaches.',
-        caution: 'Graph construction can strongly affect inferred direction and downstream interpretation.'
       }),
       paper('Nature Communications 2025', 'Inferring Differential Dynamics from Multi-lineage, Multi-omic, and Multi-sample Single-cell Data with MultiVeloVAE', ['MultiVeloVAE', 'Velocity', 'Multiomics'], 'A probabilistic framework for multi-sample and multiomic velocity inference across lineages and partially overlapping modalities.', 'https://www.nature.com/articles/s41467-025-66287-6', {
         question: 'Can velocity models compare dynamic parameters across lineages, samples and modalities?',
@@ -1431,12 +1450,25 @@ Object.assign(topics, {
         value: 'Important bridge between RNA velocity, optimal transport and generative dynamical systems.',
         caution: 'Model outputs require validation against lineage, time-course or perturbation evidence.'
       }),
+      paper('Entropy 2025', 'Integrating Dynamical Systems Modeling with Spatiotemporal scRNA-Seq Data Analysis', ['Dynamical Systems', 'Spatiotemporal scRNA-seq', 'Review'], 'A review of dynamical-systems approaches for snapshot, temporal and spatial single-cell data, covering Markov models, ODEs, SDEs, PDEs, optimal transport and Schrödinger bridges.', 'https://doi.org/10.3390/e27050453', {
+        question: 'How can dynamical-systems frameworks be organized across static, temporal and spatial single-cell measurements?',
+        method: 'Reviews discrete and continuous dynamical models together with modern generative approaches for reconstructing cellular trajectories.',
+        value: 'A useful overview for positioning RNA velocity within the broader landscape of spatiotemporal dynamical modeling.',
+        caution: 'This is a review and conceptual synthesis rather than a new velocity inference method.'
+      }),
+      paper('bioRxiv 2026', 'TMO: Asymmetric Cross-Modal Attention for Learning Cell-State-Dependent Regulatory Lags from Single-Cell Multiomic Data', ['TMO', 'Regulatory Lag', 'Cross-modal Attention'], 'A lag-aware multi-omic framework that uses asymmetric cross-modal attention to learn cell-state-dependent timing relationships between chromatin accessibility and transcription.', 'https://doi.org/10.64898/2026.06.08.730880', {
+        question: 'Can regulatory lag between ATAC and RNA be learned as a cell-state-dependent quantity rather than a single global delay?',
+        method: 'Uses asymmetric cross-modal attention with a lag prior derived from cross-correlation to learn signed regulatory delays between modalities.',
+        value: 'Directly relevant to asynchronous cross-omics regulation and adaptive lag modeling.',
+        caution: 'This is a recent bioRxiv preprint and its claims should be reassessed as peer review and independent benchmarks appear.'
+      }),
       paper('Nature Methods 2026', 'stVCR: Spatiotemporal Dynamics of Single Cells', ['stVCR', 'Spatiotemporal Dynamics', 'Spatial Transcriptomics'], 'A framework for reconstructing differentiation, proliferation, migration and spatial coordinates from time-series spatial transcriptomics.', 'https://www.nature.com/articles/s41592-026-03010-3', {
         question: 'Can time-series spatial transcriptomics reconstruct continuous spatiotemporal cellular dynamics?',
         method: 'Models differentiation, proliferation and migration jointly from spatial transcriptomic snapshots.',
         value: 'Very useful for extending dynamic inference from cell-state space to physical tissue space.',
         caution: 'Spatial sampling design and tissue registration assumptions should be checked carefully.'
-      })
+      }),
+      REGVELO_PAPER
     ]
   },
     'cbio-foundation': {
@@ -2290,7 +2322,6 @@ document.addEventListener('click', (event) => {
     if (action === 'reset') resetNoteDraft(slug);
     if (action === 'copy') copyNoteDraft(slug);
     if (action === 'download') downloadNoteDraft(slug);
-    if (action === 'markdown') downloadNoteMarkdown(slug);
     return;
   }
   const link = event.target.closest('[data-page]');
@@ -2371,6 +2402,13 @@ const suggestedSearchGroups = [
   }
 ];
 
+const suggestedSearches = [
+  ...new Set([
+    ...suggestedSearchGroups.flatMap((group) => group.items),
+    ...topicKeys.map((key) => topics[key].title)
+  ])
+];
+
 let activeFamily = 'All';
 
 
@@ -2432,6 +2470,10 @@ function buildNoteHref(noteFile) {
 
 function buildNoteAttrs(noteFile) {
   return isPDFNote(noteFile) ? '' : ' target="_blank" rel="noopener noreferrer"';
+}
+
+function makePaperStyleId(paperItem) {
+  return paperItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
 function renderSearchItem(item) {
@@ -2771,25 +2813,6 @@ function renderHomeCollections() {
 renderHomeCollections();
 
 renderTopicSummaryNotes();
-
-function renderHomeMetrics() {
-  const metrics = document.getElementById('homeMetrics');
-  if (!metrics) return;
-  const natureCount = allPapers.filter((item) => item.venue.toLowerCase().includes('nature')).length;
-  const values = [
-    ['Papers', allPapers.length],
-    ['Nature', natureCount],
-    ['Notes', finishedNotes.length],
-    ['Queue', readingQueuePapers.length]
-  ];
-  metrics.innerHTML = values.map(([label, value]) => `
-    <span>
-      <strong>${value}</strong>
-      <em>${label}</em>
-    </span>
-  `).join('');
-}
-renderHomeMetrics();
 
 
 function renderMiniStats() {
